@@ -4,20 +4,23 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BulletRay.Blog
 {
-    public class Post : FullAuditedEntity<long>
+    public class Article : FullAuditedEntity<long>
     {
-        public Post()
+        public Article()
         {
             CreationTime = DateTime.Now;
             IsDeleted = false;
             IsTop = false;
+            ReadCount = 0;
         }
         [Required]
-        public virtual string PostName { get; set; }
+        public virtual string Title { get; set; }
         [Required]
-        public virtual string PostContent { get; set; }
+        public virtual string Content { get; set; }
         public virtual string ShortDesc { get; set; }
+        public virtual string CoverImgUrl { get; set; }
         public virtual int? Like { get; set; }
+        public virtual int? UnLike { get; set; }
         public virtual int? Tag { get; set; }
         [Required]
         public virtual long UserId { get; set; }
@@ -25,5 +28,6 @@ namespace BulletRay.Blog
         public virtual bool IsTop { get; set; }
         [Required]
         public virtual int CategoryId { get; set; }
+        public virtual int ReadCount { get; set; }
     }
 }

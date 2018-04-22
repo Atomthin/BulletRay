@@ -23,7 +23,7 @@ namespace BulletRay.Blog
         public virtual string ImgUrl { get; set; }
 
         [Required]
-        public virtual long PostId { get; set; }
+        public virtual long ArticleId { get; set; }
         public virtual long? CommentId { get; set; }
         [Required]
         public virtual long UserId { get; set; }

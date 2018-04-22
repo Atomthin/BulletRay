@@ -4,16 +4,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BulletRay.Blog
 {
-    public class PostCategory : FullAuditedEntity<int>
+    public class ArticleCategory : FullAuditedEntity<int>
     {
-        public PostCategory()
+        public ArticleCategory()
         {
             CreationTime = DateTime.Now;
             IsDeleted = false;
         }
         [Required]
-        public virtual string CategoryName { get; set; }
+        public virtual string Name { get; set; }
         [Required]
-        public virtual string CategoryDesc { get; set; }
+        public virtual string Desc { get; set; }
     }
 }
