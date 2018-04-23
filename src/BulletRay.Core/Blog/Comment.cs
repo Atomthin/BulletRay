@@ -20,10 +20,8 @@ namespace BulletRay.Blog
         public virtual int Type { get; set; }
         public virtual int? Like { get; set; }
         public virtual int? UnLike { get; set; }
-        public virtual string ImgUrl { get; set; }
 
-        [Required]
-        public virtual long ArticleId { get; set; }
+        public virtual long? ArticleId { get; set; }
         public virtual long? CommentId { get; set; }
         [Required]
         public virtual long UserId { get; set; }

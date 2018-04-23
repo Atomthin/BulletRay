@@ -18,14 +18,13 @@ namespace BulletRay.Articles
 {
     public class ArticleAppService : AsyncCrudAppService<Article, ArticleDto, long, GetAllArticleDto, CreateArticleDto, UpdateArticleDto>, IArticleAppService
     {
-        private readonly IAbpSession _abpSession;
         private readonly IRepository<User, long> _userRepository;
         private readonly IRepository<Article, long> _articleRepository;
-        public ArticleAppService(IRepository<Article, long> articleRepository, IRepository<User, long> userRepository, IAbpSession abpSession) : base(articleRepository)
+
+        public ArticleAppService(IRepository<Article, long> articleRepository, IRepository<User, long> userRepository) : base(articleRepository)
         {
             _userRepository = userRepository;
             _articleRepository = articleRepository;
-            _abpSession = abpSession;
         }
 
         /// <summary>
@@ -36,7 +35,7 @@ namespace BulletRay.Articles
         public override async Task<ArticleDto> Create(CreateArticleDto input)
         {
             var entity = input.MapTo<Article>();
-            entity.UserId = _abpSession.UserId.Value;
+            entity.UserId = AbpSession.UserId.Value;
             var article = await _articleRepository.InsertAsync(entity);
             return article.MapTo<ArticleDto>();
         }
@@ -49,7 +48,7 @@ namespace BulletRay.Articles
         public override async Task<ArticleDto> Update(UpdateArticleDto input)
         {
             var entity = input.MapTo<Article>();
-            entity.LastModifierUserId = _abpSession.UserId.Value;
+            entity.LastModifierUserId = AbpSession.UserId.Value;
             entity.LastModificationTime = DateTime.Now;
             var article = await _articleRepository.UpdateAsync(entity);
             return article.MapTo<ArticleDto>();
@@ -70,6 +69,9 @@ namespace BulletRay.Articles
                     break;
                 case "UnLike":
                     query = input.IsAsc ? query.OrderBy(m => m.UnLike) : query.OrderByDescending(m => m.UnLike);
+                    break;
+                case "ReadCount":
+                    query = input.IsAsc ? query.OrderBy(m => m.ReadCount) : query.OrderByDescending(m => m.ReadCount);
                     break;
                 default:
                     query = input.IsAsc ? query.OrderBy(m => m.Id) : query.OrderByDescending(m => m.Id);
