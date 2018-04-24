@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Abp.Application.Services;
+﻿using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
 using Abp.Domain.Repositories;
@@ -8,23 +6,22 @@ using Abp.Linq.Extensions;
 using BulletRay.Articles.Dto;
 using BulletRay.Authorization.Users;
 using BulletRay.Blog;
+using BulletRay.Utility;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Abp.Runtime.Session;
-using BulletRay.Utility;
 
 namespace BulletRay.Articles
 {
     public class ArticleAppService : AsyncCrudAppService<Article, ArticleDto, long, GetAllArticleDto, CreateArticleDto, UpdateArticleDto>, IArticleAppService
     {
         private readonly IRepository<User, long> _userRepository;
-        private readonly IRepository<Article, long> _articleRepository;
 
         public ArticleAppService(IRepository<Article, long> articleRepository, IRepository<User, long> userRepository) : base(articleRepository)
         {
             _userRepository = userRepository;
-            _articleRepository = articleRepository;
         }
 
         /// <summary>
@@ -36,7 +33,7 @@ namespace BulletRay.Articles
         {
             var entity = input.MapTo<Article>();
             entity.UserId = AbpSession.UserId.Value;
-            var article = await _articleRepository.InsertAsync(entity);
+            var article = await Repository.InsertAsync(entity);
             return article.MapTo<ArticleDto>();
         }
 
@@ -50,7 +47,7 @@ namespace BulletRay.Articles
             var entity = input.MapTo<Article>();
             entity.LastModifierUserId = AbpSession.UserId.Value;
             entity.LastModificationTime = DateTime.Now;
-            var article = await _articleRepository.UpdateAsync(entity);
+            var article = await Repository.UpdateAsync(entity);
             return article.MapTo<ArticleDto>();
         }
 
@@ -93,7 +90,7 @@ namespace BulletRay.Articles
             if (!string.IsNullOrEmpty(input.UserName))
             {
                 query = from user in _userRepository.GetAll()
-                        join article in _articleRepository.GetAll() on user.Id equals article.UserId
+                        join article in Repository.GetAll() on user.Id equals article.UserId
                         where user.UserName == input.UserName
                         select article;
             }
@@ -108,7 +105,7 @@ namespace BulletRay.Articles
         /// <param name="input"></param>
         public async void UpdataLikeOrUnLikeAsync(UpdateLikeOrUnLikeDto input)
         {
-            var entity = await _articleRepository.GetAll().FirstOrDefaultAsync(m => m.Id == input.ArticleId);
+            var entity = await Repository.GetAll().FirstOrDefaultAsync(m => m.Id == input.ArticleId);
             if (entity != null)
             {
                 switch (input.LikeType)
@@ -127,7 +124,7 @@ namespace BulletRay.Articles
                         break;
                 }
             }
-            await _articleRepository.UpdateAsync(entity);
+            await Repository.UpdateAsync(entity);
         }
 
         /// <summary>
@@ -136,9 +133,9 @@ namespace BulletRay.Articles
         /// <param name="articleId"></param>
         public async void UpdateReadCountAsync(long articleId)
         {
-            var entity = await _articleRepository.GetAll().FirstOrDefaultAsync(m => m.Id == articleId);
+            var entity = await Repository.GetAll().FirstOrDefaultAsync(m => m.Id == articleId);
             entity.ReadCount++;
-            await _articleRepository.UpdateAsync(entity);
+            await Repository.UpdateAsync(entity);
         }
     }
 }

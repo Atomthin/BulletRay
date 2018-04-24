@@ -15,10 +15,8 @@ namespace BulletRay.Comments
 {
     public class CommentAppService : AsyncCrudAppService<Comment, CommentDto, long, GetAllCommentDto, CreateCommentDto>, ICommentAppService
     {
-        private readonly IRepository<Comment, long> _commentRepository;
         public CommentAppService(IRepository<Comment, long> commentRepository) : base(commentRepository)
         {
-            _commentRepository = commentRepository;
         }
 
         /// <summary>
@@ -30,7 +28,7 @@ namespace BulletRay.Comments
         {
             var entity = ObjectMapper.Map<Comment>(input);
             entity.UserId = AbpSession.UserId.Value;
-            var article = await _commentRepository.InsertAsync(entity);
+            var article = await Repository.InsertAsync(entity);
             return MapToEntityDto(article);
         }
 
@@ -53,7 +51,7 @@ namespace BulletRay.Comments
         /// <param name="input"></param>
         public async void UpdataLikeOrUnLikeAsync(UpdateLikeOrUnLikeDto input)
         {
-            var entity = await _commentRepository.GetAll().FirstOrDefaultAsync(m => m.Id == input.CommentId);
+            var entity = await Repository.GetAll().FirstOrDefaultAsync(m => m.Id == input.CommentId);
             if (entity != null)
             {
                 switch (input.LikeType)
@@ -72,7 +70,7 @@ namespace BulletRay.Comments
                         break;
                 }
             }
-            await _commentRepository.UpdateAsync(entity);
+            await Repository.UpdateAsync(entity);
         }
 
         /// <summary>
@@ -83,7 +81,7 @@ namespace BulletRay.Comments
         protected override IQueryable<Comment> CreateFilteredQuery(GetAllCommentDto input)
         {
             var query = base.CreateFilteredQuery(input).Where(m => m.Type == input.Type);
-            query = _commentRepository.GetAll().WhereIf(input != null, m => m.ArticleId == input.ArticleId);
+            query = Repository.GetAll().WhereIf(input.ArticleId != null, m => m.ArticleId == input.ArticleId);
             return query;
         }
     }

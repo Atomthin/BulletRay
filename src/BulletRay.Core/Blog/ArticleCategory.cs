@@ -10,10 +10,13 @@ namespace BulletRay.Blog
         {
             CreationTime = DateTime.Now;
             IsDeleted = false;
+            IsOpenShown = false;
         }
         [Required]
         public virtual string Name { get; set; }
         [Required]
         public virtual string Desc { get; set; }
+        [Required]
+        public virtual bool IsOpenShown { get; set; }
     }
 }
