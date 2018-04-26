@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Abp.AspNetCore.Mvc.Authorization;
+using Abp.Web.Models;
 using BulletRay.ArticleCategorys;
+using BulletRay.ArticleCategorys.Dto;
 using BulletRay.Controllers;
+using BulletRay.Web.Models.ArticleCategory;
+using BulletRay.Web.Models.Common;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BulletRay.Web.Mvc.Controllers
+namespace BulletRay.Web.Controllers
 {
     [AbpMvcAuthorize]
     public class ArticleCategoryController : BulletRayControllerBase
@@ -22,5 +23,21 @@ namespace BulletRay.Web.Mvc.Controllers
         {
             return View();
         }
+
+        [DontWrapResult]
+        public async Task<JsonResult> GetDatas(ArticleCategoryQuery query)
+        {
+            var list = await _articleCategoryAppService.GetAll(new GetAllArticleCategoryDto
+            {
+                Name = query.Name,
+                Desc = query.Desc,
+                SkipCount = query.Start,
+                MaxResultCount = query.Length,
+                Sorting = $"{query.OrderBy},{query.OrderDir}"
+            });
+            return Json(new DataTableResultModel<ArticleCategoryDto>(query.Draw, list.TotalCount, list.TotalCount,
+                list.Items));
+        }
+
     }
 }

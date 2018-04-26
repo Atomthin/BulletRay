@@ -31,9 +31,9 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
             <div class="header">
-                <h2>
-                    @L("ArticleCategory")
-                </h2>
+                <h2>@L("ArticleCategory")</h2>
+            </div>
+            <div class="body">
                 <form id="articleCategoryForm">
                     <div class="row clearfix">
                         <div class="col-sm-6">
@@ -51,9 +51,23 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row clearfix">
+                        <div class="col-sm-offset-11">
+                            <a class="btn btn-sm btn-primary" data-loading-text="查询中……">查询</a>
+                        </div>
+                    </div>
                 </form>
+            </div>
+        </div>
+        <div class="card">
+            <div class="header">
+                <h2>查询结果</h2>
+            </div>
+            <div class="body">
+                <div class="table-responsive">
+                    <div id="resultTable"></div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
