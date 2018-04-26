@@ -5,6 +5,7 @@ using Abp.Domain.Repositories;
 using Abp.Linq.Extensions;
 using BulletRay.Blog;
 using BulletRay.Comments.Dto;
+using BulletRay.CommonDto;
 using BulletRay.Utility;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -49,9 +50,9 @@ namespace BulletRay.Comments
         /// 更新Like和Unlike
         /// </summary>
         /// <param name="input"></param>
-        public async void UpdataLikeOrUnLikeAsync(UpdateLikeOrUnLikeDto input)
+        public async void UpdataLikeOrUnLikeAsync(UpdataLikeOrUnLikeDto input)
         {
-            var entity = await Repository.GetAll().FirstOrDefaultAsync(m => m.Id == input.CommentId);
+            var entity = await Repository.GetAll().FirstOrDefaultAsync(m => m.Id == input.Id);
             if (entity != null)
             {
                 switch (input.LikeType)

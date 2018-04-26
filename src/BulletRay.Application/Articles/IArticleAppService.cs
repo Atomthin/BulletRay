@@ -1,12 +1,12 @@
 ﻿using Abp.Application.Services;
 using BulletRay.Articles.Dto;
-using System.Threading.Tasks;
+using BulletRay.CommonDto;
 
 namespace BulletRay.Articles
 {
     public interface IArticleAppService : IAsyncCrudAppService<ArticleDto, long, GetAllArticleDto, CreateArticleDto, UpdateArticleDto>
     {
-        void UpdataLikeOrUnLikeAsync(UpdateLikeOrUnLikeDto input);
+        void UpdateLikeOrUnLikeAsync(UpdataLikeOrUnLikeDto input);
         void UpdateReadCountAsync(long articleId);
     }
 }

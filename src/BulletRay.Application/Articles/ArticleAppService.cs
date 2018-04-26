@@ -6,6 +6,7 @@ using Abp.Linq.Extensions;
 using BulletRay.Articles.Dto;
 using BulletRay.Authorization.Users;
 using BulletRay.Blog;
+using BulletRay.CommonDto;
 using BulletRay.Utility;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -103,9 +104,9 @@ namespace BulletRay.Articles
         /// 更新Like和Unlike
         /// </summary>
         /// <param name="input"></param>
-        public async void UpdataLikeOrUnLikeAsync(UpdateLikeOrUnLikeDto input)
+        public async void UpdateLikeOrUnLikeAsync(UpdataLikeOrUnLikeDto input)
         {
-            var entity = await Repository.GetAll().FirstOrDefaultAsync(m => m.Id == input.ArticleId);
+            var entity = await Repository.GetAll().FirstOrDefaultAsync(m => m.Id == input.Id);
             if (entity != null)
             {
                 switch (input.LikeType)
