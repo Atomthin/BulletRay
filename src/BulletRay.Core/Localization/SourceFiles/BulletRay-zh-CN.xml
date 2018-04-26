@@ -1,8 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="zh-CN">
   <texts>
+    <!--导航页面-->
     <text name="HomePage" value="主页" />
     <text name="About" value="关于我们" />
+    <text name="Article" value="文章" />
+    <text name="ArticleCategory" value="文章分类" />
+    <text name="Comment" value="评论和留言" />
+    <text name="Tag" value="内容标签" />
+    <!--导航页面-->
+    
     <text name="WellcomeMessage" value="欢迎使用 BulletRay!" />
     
     <text name="FormIsNotValidMessage" value="部分输入信息不符合要求，请检查并改正.." />

@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles
+    {
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/jquery-datatable/datatables.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/jquery-datatable/dataTables.bootstrap.min.css" asp-append-version="true" />
+    </environment>
+
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib/jquery-datatable/datatables.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/jquery-datatable/dataTables.bootstrap.min.css" asp-append-version="true" />
+    </environment>
+}
+@section scripts
+    {
+    <environment names="Development">
+        <script src="~/lib/jquery-datatable/datatables.min.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-datatable/dataTables.bootstrap.min.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/lib/jquery-datatable/datatables.min.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-datatable/dataTables.bootstrap.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    @L("ArticleCategory")
+                </h2>
+                <form id="articleCategoryForm">
+                    <div class="row clearfix">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" class="form-control" placeholder="请输入分类名字" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" class="form-control" placeholder="请输入分类简介" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

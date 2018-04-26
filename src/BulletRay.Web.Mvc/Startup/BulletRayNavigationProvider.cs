@@ -44,12 +44,18 @@ namespace BulletRay.Web.Startup
                         icon: "local_offer",
                         requiredPermissionName: PermissionNames.Pages_Roles
                     )
-                )
-                .AddItem(
+                ).AddItem(
                     new MenuItemDefinition(
                         PageNames.About,
                         L("About"),
                         url: "About",
+                        icon: "info"
+                    )
+                ).AddItem(
+                    new MenuItemDefinition(
+                        PageNames.ArticleCategory,
+                        L("ArticleCategory"),
+                        url: "ArticleCategory",
                         icon: "info"
                     )
                 ).AddItem( // Menu items below is just for demonstration!
