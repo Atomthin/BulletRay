@@ -17,6 +17,7 @@
 @section scripts
     {
     <environment names="Development">
+        <script src="~/view-resources/Views/ArticleCategory/Index.js" asp-append-version="true"></script>
         <script src="~/lib/jquery-datatable/datatables.min.js" asp-append-version="true"></script>
         <script src="~/lib/jquery-datatable/dataTables.bootstrap.min.js" asp-append-version="true"></script>
     </environment>
@@ -34,7 +35,7 @@
                 <h2>@L("ArticleCategory")</h2>
             </div>
             <div class="body">
-                <form id="articleCategoryForm">
+                <form id="articleCategoryForm" action="@Url.Action("GetDatas","ArticleCategory")">
                     <div class="row clearfix">
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -53,7 +54,7 @@
                     </div>
                     <div class="row clearfix">
                         <div class="col-sm-offset-11">
-                            <a class="btn btn-sm btn-primary" data-loading-text="查询中……">查询</a>
+                            <a class="btn btn-sm btn-primary" id="btnSearch" data-loading-text="查询中……">查询</a>
                         </div>
                     </div>
                 </form>
@@ -65,7 +66,17 @@
             </div>
             <div class="body">
                 <div class="table-responsive">
-                    <div id="resultTable"></div>
+                    <table class="table table-hover table-bordered" id="resultTable">
+                        <thead>
+                            <tr>
+                                <th>编号</th>
+                                <th>分类名字</th>
+                                <th>分类简介</th>
+                                <th>创建时间</th>
+                                <th>修改时间</th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
         </div>

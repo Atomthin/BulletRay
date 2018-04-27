@@ -24,6 +24,7 @@ namespace BulletRay.Web.Controllers
             return View();
         }
 
+        [HttpPost]
         [DontWrapResult]
         public async Task<JsonResult> GetDatas(ArticleCategoryQuery query)
         {
