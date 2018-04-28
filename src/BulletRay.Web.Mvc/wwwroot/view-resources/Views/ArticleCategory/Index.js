@@ -10,7 +10,7 @@ function InitTable() {
         "serverSide": true,
         "ordering": true,
         "ajax": {
-            "url": $("#articleCategoryForm").action,
+            "url": $("#articleCategoryForm")[0].action,
             "type": "POST",
             "contentType": "application/json; charset=utf-8",
             "data": function (data) {

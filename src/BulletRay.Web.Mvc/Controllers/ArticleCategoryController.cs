@@ -26,6 +26,18 @@ namespace BulletRay.Web.Controllers
 
         [HttpPost]
         [DontWrapResult]
+        public async Task<IActionResult> Create(CreateArticleCategoryModel model)
+        {
+            var entityDto = await _articleCategoryAppService.Create(new CreateArticleCategoryDto() { Name = model.Name, Desc = model.Desc, IsOpenShown = model.IsOpenShown });
+            if (entityDto != null)
+            {
+                return Json(new ResultBaseModel() { Result = true });
+            }
+            return Json(new ResultBaseModel() { Result = false });
+        }
+
+        [HttpPost]
+        [DontWrapResult]
         public async Task<JsonResult> GetDatas(ArticleCategoryQuery query)
         {
             var list = await _articleCategoryAppService.GetAll(new GetAllArticleCategoryDto
