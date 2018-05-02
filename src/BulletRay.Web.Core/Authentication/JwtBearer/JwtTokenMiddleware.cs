@@ -18,7 +18,6 @@ namespace BulletRay.Authentication.JwtBearer
                         ctx.User = result.Principal;
                     }
                 }
-
                 await next();
             });
         }

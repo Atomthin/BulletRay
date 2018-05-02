@@ -1,12 +1,15 @@
-﻿using System.Threading.Tasks;
-using Abp.AspNetCore.Mvc.Authorization;
+﻿using Abp.AspNetCore.Mvc.Authorization;
 using Abp.Web.Models;
 using BulletRay.ArticleCategorys;
 using BulletRay.ArticleCategorys.Dto;
 using BulletRay.Controllers;
+using BulletRay.Export;
 using BulletRay.Web.Models.ArticleCategory;
 using BulletRay.Web.Models.Common;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections;
+using System.Threading.Tasks;
 
 namespace BulletRay.Web.Controllers
 {
@@ -24,21 +27,14 @@ namespace BulletRay.Web.Controllers
             return View();
         }
 
-        [HttpPost]
-        [DontWrapResult]
-        public async Task<IActionResult> Create(CreateArticleCategoryModel model)
+        public IActionResult Create()
         {
-            var entityDto = await _articleCategoryAppService.Create(new CreateArticleCategoryDto() { Name = model.Name, Desc = model.Desc, IsOpenShown = model.IsOpenShown });
-            if (entityDto != null)
-            {
-                return Json(new ResultBaseModel() { Result = true });
-            }
-            return Json(new ResultBaseModel() { Result = false });
+            return PartialView("_CreateArticleCategoryModal");
         }
 
         [HttpPost]
         [DontWrapResult]
-        public async Task<JsonResult> GetDatas(ArticleCategoryQuery query)
+        public async Task<JsonResult> GetDatas([FromBody]ArticleCategoryQuery query)
         {
             var list = await _articleCategoryAppService.GetAll(new GetAllArticleCategoryDto
             {
@@ -52,5 +48,37 @@ namespace BulletRay.Web.Controllers
                 list.Items));
         }
 
+        [HttpPost]
+        [DontWrapResult]
+        public async Task<IActionResult> Export(string name, string desc)
+        {
+            var list = await _articleCategoryAppService.GetAll(new GetAllArticleCategoryDto
+            {
+                Name = name,
+                Desc = desc,
+                SkipCount = 0,
+                MaxResultCount = 0,
+                Sorting = string.Empty
+            });
+            var fileName = string.Format("导出文章分类-{0}.xlsx", DateTime.Now.ToString("yyyyMMddhhmmssfff"));
+            var byteArr = ExcelManager.CreateExcelFileToByteArray(list.Items, new Hashtable
+            {
+                { "Id","文章分类编号"},
+                { "Name","文章分类名字"},
+                { "Desc","文章分简介"},
+                { "CreationTime","文章分类创建时间"},
+                { "IsOpenShown","是否开放展示"}
+            }, fileName);
+            var fileGuid = Guid.NewGuid().ToString();
+            TempData[fileGuid] = byteArr;
+            return Json(new { DownLoadUrl = Url.Action("Download", "ArticleCategory", new { fileGuid, fileName }) });
+        }
+
+        [HttpGet]
+        public ActionResult Download(string fileGuid, string fileName)
+        {
+            var data = (byte[])TempData[fileGuid];
+            return File(data, "application/ms-excel", fileName);
+        }
     }
 }

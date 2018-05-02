@@ -31,6 +31,11 @@ namespace BulletRay.Web.Models.Common
         public List<DataTablesOrder> Order { get; set; }
 
         /// <summary>
+        /// 搜索
+        /// </summary>
+        public DataTablesSearch Search { get; set; }
+
+        /// <summary>
         /// 排序字段
         /// </summary>
         public string OrderBy => Columns != null && Columns.Any() && Order != null && Order.Any()
@@ -98,5 +103,26 @@ namespace BulletRay.Web.Models.Common
         /// 是否可以排序
         /// </summary>
         public bool Orderable { get; set; }
+
+        /// <summary>
+        /// 搜索
+        /// </summary>
+        public DataTablesSearch Search { get; set; }
+    }
+
+    /// <summary>
+    /// 搜索
+    /// </summary>
+    public class DataTablesSearch
+    {
+        /// <summary>
+        /// 全局的搜索条件的值
+        /// </summary>
+        public string Value { get; set; }
+
+        /// <summary>
+        /// 是否为正则表达式处理
+        /// </summary>
+        public bool Regex { get; set; }
     }
 }

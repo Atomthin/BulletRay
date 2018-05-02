@@ -1,0 +1,40 @@
+﻿@using BulletRay.Web.Models.Common.Modals
+
+@Html.Partial("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateArticleCategory")))
+<div class="modal-body">
+    <form name="CreateArticleCategoryForm" role="form" novalidate class="form-validation">
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <input id="articleCategoryName" type="text" name="Name" required maxlength="32" minlength="2" class="validate form-control">
+                        <label for="articleCategoryName" class="form-label">@L("ArticleCategoryName")</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <input id="articleCategoryDesc" type="text" name="Desc" required maxlength="32" minlength="2" class="validate form-control" />
+                        <label for="articleCategoryDesc" class="form-label">@L("ArticleCategoryDesc")</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="form-group form-float">
+                    <div class="">
+                        <input id="isOpenShown" type="checkbox" name="IsOpenShown" value="true" class="filled-in" checked/>
+                        <label for="isOpenShown" class="form-label">@L("IsOpenShown")</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+@Html.Partial("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+
+<script src="~/view-resources/Views/ArticleCategory/_CreateArticleCategoryModal.js" asp-append-version="true"></script>

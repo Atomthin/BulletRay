@@ -1067,7 +1067,7 @@ namespace BulletRay.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PostCategorys");
+                    b.ToTable("ArticleCategorys");
                 });
 
             modelBuilder.Entity("BulletRay.Blog.Comment", b =>

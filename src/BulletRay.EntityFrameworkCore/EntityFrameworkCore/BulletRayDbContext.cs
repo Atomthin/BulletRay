@@ -12,7 +12,7 @@ namespace BulletRay.EntityFrameworkCore
         public virtual DbSet<Article> Posts { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
-        public virtual DbSet<ArticleCategory> PostCategorys { get; set; }
+        public virtual DbSet<ArticleCategory> ArticleCategorys { get; set; }
         /* Define a DbSet for each entity of the application */
 
         public BulletRayDbContext(DbContextOptions<BulletRayDbContext> options)

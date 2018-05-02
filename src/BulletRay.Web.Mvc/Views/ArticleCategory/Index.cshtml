@@ -5,12 +5,10 @@
 @section Styles
     {
     <environment names="Development">
-        <link rel="stylesheet" href="~/lib/jquery-datatable/datatables.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/lib/jquery-datatable/dataTables.bootstrap.min.css" asp-append-version="true" />
     </environment>
 
     <environment names="Staging,Production">
-        <link rel="stylesheet" href="~/lib/jquery-datatable/datatables.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/lib/jquery-datatable/dataTables.bootstrap.min.css" asp-append-version="true" />
     </environment>
 }
@@ -18,12 +16,13 @@
     {
     <environment names="Development">
         <script src="~/view-resources/Views/ArticleCategory/Index.js" asp-append-version="true"></script>
-        <script src="~/lib/jquery-datatable/datatables.min.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-datatable/jquery.dataTables.min.js" asp-append-version="true"></script>
         <script src="~/lib/jquery-datatable/dataTables.bootstrap.min.js" asp-append-version="true"></script>
     </environment>
 
     <environment names="Staging,Production">
-        <script src="~/lib/jquery-datatable/datatables.min.js" asp-append-version="true"></script>
+        <script src="~/view-resources/Views/ArticleCategory/Index.min.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-datatable/jquery.dataTables.min.js" asp-append-version="true"></script>
         <script src="~/lib/jquery-datatable/dataTables.bootstrap.min.js" asp-append-version="true"></script>
     </environment>
 }
@@ -38,16 +37,18 @@
                 <form id="articleCategoryForm" action="@Url.Action("GetDatas","ArticleCategory")">
                     <div class="row clearfix">
                         <div class="col-sm-6">
-                            <div class="form-group">
+                            <div class="form-group form-float">
                                 <div class="form-line">
-                                    <input type="text" class="form-control" placeholder="请输入分类名字" />
+                                    <input class="form-control" id="articleCategoryName" name="Name" type="text" />
+                                    <label for="articleCategoryName" class="form-label">@L("SearchArticleCategoryName")</label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="form-group">
+                            <div class="form-group form-float">
                                 <div class="form-line">
-                                    <input type="text" class="form-control" placeholder="请输入分类简介" />
+                                    <input class="form-control" id="articleCategoryDesc" name="Desc" type="text" />
+                                    <label for="articleCategoryDesc" class="form-label">@L("SearchArticleCategoryDesc")</label>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +56,8 @@
                     <div class="row clearfix">
                         <div class="col-sm-offset-10">
                             <a class="btn btn-sm btn-primary" id="btnSearch" data-loading-text="查询中……">查询</a>&nbsp;&nbsp;
-                            <a class="btn btn-sm btn-primary" id="btnCreate">新增</a>
+                            <a class="btn btn-sm btn-primary" id="btnCreate" data-toggle="modal" data-target="#CreateArticleCategoryModal">新增</a>&nbsp;&nbsp;
+                            <a class="btn btn-sm btn-primary" id="btnExport" data-loading-text="操作中……" data-url="@Url.Action("Export","ArticleCategory")">导出</a>
                         </div>
                     </div>
                 </form>
@@ -67,7 +69,7 @@
             </div>
             <div class="body">
                 <div class="table-responsive">
-                    <table class="table table-hover table-bordered" id="resultTable">
+                    <table class="table table-hover" id="resultTable">
                         <thead>
                             <tr>
                                 <th>编号</th>
@@ -83,3 +85,14 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="CreateArticleCategoryModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+<!--auto download iframe placeholder-->
+<iframe id="downloadIframe" style="visibility: hidden; display: none;" src=""></iframe>

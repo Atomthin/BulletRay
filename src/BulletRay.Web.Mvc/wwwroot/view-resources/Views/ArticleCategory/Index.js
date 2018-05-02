@@ -1,7 +1,32 @@
 ﻿$(function () {
+    $("#btnCreate").click(function (e) {
+        $.ajax({
+            url: abp.appPath + 'ArticleCategory/Create',
+            type: 'GET',
+            contentType: 'application/html',
+            success: function (content) {
+                $('#CreateArticleCategoryModal div.modal-content').html(content);
+            },
+            error: function (e) { }
+        });
+    });
     InitTable();
     $("#resultTable").on("xhr.dt", function () {
         $("#btnSearch").button("reset");
+    });
+    $("#btnExport").on("click", function () {
+        $("#btnExport").button("loading");
+        $.ajax({
+            url: $(this).data("url"),
+            type: "POST",
+            data: $("#articleCategoryForm").serialize(),
+            success: function (result) {
+                $("#btnExport").button("reset");
+                if (result.downLoadUrl !== null && result.downLoadUrl !== undefined) {
+                    $("#downloadIframe").attr("src", result.downLoadUrl);
+                }
+            }
+        });
     });
 });
 
@@ -11,17 +36,17 @@ function InitTable() {
         "ordering": true,
         "ajax": {
             "url": $("#articleCategoryForm")[0].action,
-            "type": "POST",
+            "type": "post",
             "contentType": "application/json; charset=utf-8",
             "data": function (data) {
                 var params = $("#articleCategoryForm").serializeArray();
                 $.each(params, function (i, field) {
                     data[field.name] = field.value;
                 });
-                return data;
+                return JSON.stringify(data);
             }
         },
-        "lengthMenu": [10, 25, 50, 75, 100],
+        "lengthMenu": [5, 10, 25, 50, 75, 100],
         "pageLength": 10,
         "processing": true,
         "searching": false,
@@ -47,8 +72,20 @@ function InitTable() {
             { "data": "id" },
             { "data": "name" },
             { "data": "desc" },
-            { "data": "creationTime" },
-            { "data": "lastModificationTime" }
+            {
+                "data": "creationTime",
+                "render": function (data) {
+                    return new Date(data).toLocaleString("zh-cn", { hour12: false });
+                }
+            },
+            {
+                "data": "lastModificationTime",
+                "render": function (data) {
+                    if (data === null) {
+                        return "无数据";
+                    }
+                }
+            }
         ]
     });
     $("#btnSearch").on("click", function () {
