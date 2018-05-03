@@ -8,7 +8,7 @@ namespace BulletRay.Export
 {
     public class ExcelManager
     {
-        public static byte[] CreateExcelFileToByteArray<T>(IEnumerable<T> list, Hashtable head, string fileName)
+        public static byte[] CreateExcelFileToByteArray<T>(IEnumerable<T> list, Hashtable head)
         {
             try
             {

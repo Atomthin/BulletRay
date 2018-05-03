@@ -16,17 +16,24 @@
     });
     $("#btnExport").on("click", function () {
         $("#btnExport").button("loading");
-        $.ajax({
-            url: $(this).data("url"),
-            type: "POST",
-            data: $("#articleCategoryForm").serialize(),
-            success: function (result) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", $(this).data("url"), true);
+        xhr.responseType = "blob";
+        xhr.onload = function (e) {
+            if (xhr.status == 200) {
+                var blob = new Blob([xhr.response], { type: "application/vnd.ms-excel" });
+                var downloadUrl = URL.createObjectURL(blob);
+                var a = document.createElement("a");
+                a.href = downloadUrl;
+                a.download = "ArticleCategory" + Date.now() + ".xlsx";
+                document.body.appendChild(a);
                 $("#btnExport").button("reset");
-                if (result.downLoadUrl !== null && result.downLoadUrl !== undefined) {
-                    $("#downloadIframe").attr("src", result.downLoadUrl);
-                }
+                a.click();
+            } else {
+                alert("导出Excel失败")
             }
-        });
+       };
+       xhr.send($("#articleCategoryForm").serialize());
     });
 });
 
