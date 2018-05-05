@@ -1,11 +1,11 @@
 ﻿$(function () {
     $("#btnCreate").click(function (e) {
         $.ajax({
-            url: abp.appPath + 'ArticleCategory/Create',
-            type: 'GET',
-            contentType: 'application/html',
+            url: abp.appPath + "ArticleCategory/Create",
+            type: "GET",
+            contentType: "application/html",
             success: function (content) {
-                $('#CreateArticleCategoryModal div.modal-content').html(content);
+                $("#CreateArticleCategoryModal div.modal-content").html(content);
             },
             error: function (e) { }
         });
@@ -17,23 +17,23 @@
     $("#btnExport").on("click", function () {
         $("#btnExport").button("loading");
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", $(this).data("url"), true);
+        xhr.open("get", $(this).data("url") + "?" + $("#articleCategoryForm").serialize(), true);
         xhr.responseType = "blob";
         xhr.onload = function (e) {
-            if (xhr.status == 200) {
+            $("#btnExport").button("reset");
+            if (xhr.status === 200) {
                 var blob = new Blob([xhr.response], { type: "application/vnd.ms-excel" });
                 var downloadUrl = URL.createObjectURL(blob);
                 var a = document.createElement("a");
                 a.href = downloadUrl;
                 a.download = "ArticleCategory" + Date.now() + ".xlsx";
                 document.body.appendChild(a);
-                $("#btnExport").button("reset");
                 a.click();
             } else {
-                alert("导出Excel失败")
+                alert("导出Excel失败");
             }
-       };
-       xhr.send($("#articleCategoryForm").serialize());
+        };
+        xhr.send();
     });
 });
 
