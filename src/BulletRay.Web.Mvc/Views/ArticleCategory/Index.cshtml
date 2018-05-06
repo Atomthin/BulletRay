@@ -55,9 +55,8 @@
                     </div>
                 </form>
                 <div class="row clearfix">
-                    <div class="col-sm-offset-9">
+                    <div class="col-sm-offset-10">
                         <a class="btn btn-sm btn-primary" id="btnSearch" data-loading-text="查询中……">查询</a>&nbsp;&nbsp;
-                        <a class="btn btn-sm btn-primary" id="btnCreate" data-toggle="modal" data-target="#CreateArticleCategoryModal">新增</a>&nbsp;&nbsp;
                         <a class="btn btn-sm btn-primary" id="btnExport" data-loading-text="操作中……" data-url="@Url.Action("Export","ArticleCategory")">导出</a>
                     </div>
                 </div>
@@ -72,14 +71,20 @@
                     <table class="table table-hover" id="resultTable">
                         <thead>
                             <tr>
-                                <th>编号</th>
-                                <th>分类名字</th>
-                                <th>分类简介</th>
-                                <th>创建时间</th>
-                                <th>修改时间</th>
+                                <th class="align-center">编号</th>
+                                <th class="align-center">分类名字</th>
+                                <th class="align-center">分类简介</th>
+                                <th class="align-center">创建时间</th>
+                                <th class="align-center">修改时间</th>
+                                <th class="align-center">操作</th>
                             </tr>
                         </thead>
                     </table>
+                </div>
+                <div class="row">
+                    <a class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right m-r-15" id="btnCreate" data-toggle="modal" data-target="#CreateArticleCategoryModal">
+                        <i class="material-icons">add</i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -89,7 +94,13 @@
 <div class="modal fade" id="CreateArticleCategoryModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
+        </div>
+    </div>
+</div>
 
+<div class="modal fade" id="EditArticleCategoryModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
         </div>
     </div>
 </div>

@@ -1,4 +1,6 @@
 ﻿$(function () {
+    var _articleCategoryService = abp.services.app.articleCategory;
+
     $("#btnCreate").click(function (e) {
         $.ajax({
             url: abp.appPath + "ArticleCategory/Create",
@@ -10,10 +12,13 @@
             error: function (e) { }
         });
     });
+
     InitTable();
+
     $("#resultTable").on("xhr.dt", function () {
         $("#btnSearch").button("reset");
     });
+
     $("#btnExport").on("click", function () {
         $("#btnExport").button("loading");
         var xhr = new XMLHttpRequest();
@@ -30,10 +35,41 @@
                 document.body.appendChild(a);
                 a.click();
             } else {
-                alert("导出Excel失败");
+                abp.message.alert("导出Excel失败！")
             }
         };
         xhr.send();
+    });
+
+    $("#resultTable").on("click", ".edit-articlecategory", function (e) {
+        var articleCategoryId = $(this).data("articlecategory-id");
+        e.preventDefault();
+        $.ajax({
+            url: abp.appPath + "ArticleCategory/Edit?articleCategoryId=" + articleCategoryId,
+            type: "get",
+            contentType: "application/html",
+            success: function (content) {
+                $("#EditArticleCategoryModal div.modal-content").html(content);
+            },
+            error: function (e) { }
+        });
+    });
+
+    $("#resultTable").on("click", ".delete-articlecategory", function () {
+        var articleCategoryId = $(this).data("articlecategory-id");
+        var articleCategoryName = $(this).data("articlecategory-name");
+        abp.message.confirm(
+            "确认删除文章分类 " + articleCategoryName + " ?",
+            function (isConfirmed) {
+                if (isConfirmed) {
+                    _articleCategoryService.delete({
+                        id: articleCategoryId
+                    }).done(function () {
+                        location.reload(true);
+                    });
+                }
+            }
+        );
     });
 });
 
@@ -76,25 +112,48 @@ function InitTable() {
             }
         },
         "columns": [
-            { "data": "id" },
-            { "data": "name" },
-            { "data": "desc" },
+            {
+                "data": "id",
+                "class": "align-center"
+            },
+            {
+                "data": "name",
+                "class": "align-center"
+            },
+            {
+                "data": "desc",
+                "class": "align-center"
+            },
             {
                 "data": "creationTime",
+                "class": "align-center",
                 "render": function (data) {
                     return new Date(data).toLocaleString("zh-cn", { hour12: false });
                 }
             },
             {
                 "data": "lastModificationTime",
+                "class": "align-center",
                 "render": function (data) {
                     if (data === null) {
                         return "无数据";
-                    }
+                    } else
+                        return new Date(data).toLocaleString("zh-cn", { hour12: false })
+                }
+            }
+        ],
+        "columnDefs": [
+            {
+                "targets": 5,
+                "data": "id",
+                "class": "dropdown align-center",
+                "render": function (data, type, row, meta) {
+                    return "<a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'><i class='material-icons'>menu</i></a><ul class='dropdown-menu pull-right'><li><a href='#' class='waves-effect waves-block edit-articlecategory' data-articlecategory-id='" + data + "' data-toggle='modal' data-target='#EditArticleCategoryModal'><i class='material-icons'>edit</i>编辑</a></li><li><a href='#' class='waves-effect waves-block delete-articlecategory' data-articlecategory-id='" + data + "' data-articlecategory-name='" + row.name + "'><i class='material-icons'>delete_sweep</i>删除</a></li></ul>";
                 }
             }
         ]
     });
+
     $("#btnSearch").on("click", function () {
         $("#btnSearch").button("loading");
         table.api().ajax.reload();

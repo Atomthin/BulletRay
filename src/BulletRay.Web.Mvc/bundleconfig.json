@@ -148,5 +148,17 @@
     "inputFiles": [
       "wwwroot/view-resources/Views/ArticleCategory/Index.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/view-resources/Views/ArticleCategory/_CreateArticleCategoryModal.min.js",
+    "inputFiles": [
+      "wwwroot/view-resources/Views/ArticleCategory/_CreateArticleCategoryModal.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/view-resources/Views/ArticleCategory/_EditArticleCategoryModal.min.js",
+    "inputFiles": [
+      "wwwroot/view-resources/Views/ArticleCategory/_EditArticleCategoryModal.js"
+    ]
   }
 ]

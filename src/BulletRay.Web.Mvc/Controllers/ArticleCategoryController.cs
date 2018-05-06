@@ -1,4 +1,5 @@
-﻿using Abp.AspNetCore.Mvc.Authorization;
+﻿using Abp.Application.Services.Dto;
+using Abp.AspNetCore.Mvc.Authorization;
 using Abp.Web.Models;
 using BulletRay.ArticleCategorys;
 using BulletRay.ArticleCategorys.Dto;
@@ -32,6 +33,20 @@ namespace BulletRay.Web.Controllers
         public IActionResult Create()
         {
             return PartialView("_CreateArticleCategoryModal");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int articleCategoryId)
+        {
+            var dto = await _articleCategoryAppService.Get(new EntityDto(articleCategoryId));
+            var model = new EditArticleCategoryModel
+            {
+                Id = dto.Id,
+                Name = dto.Name,
+                Desc = dto.Desc,
+                IsOpenShown = dto.IsOpenShown
+            };
+            return PartialView("_EditArticleCategoryModal", model);
         }
 
         [HttpPost]

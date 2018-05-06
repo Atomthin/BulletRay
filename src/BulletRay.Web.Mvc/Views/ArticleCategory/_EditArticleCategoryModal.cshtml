@@ -1,13 +1,15 @@
 ﻿@using BulletRay.Web.Models.Common.Modals
+@model BulletRay.Web.Models.ArticleCategory.EditArticleCategoryModel
 
-@Html.Partial("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateArticleCategory")))
+@Html.Partial("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("EditArticleCategory")))
 <div class="modal-body">
-    <form name="CreateArticleCategoryForm" role="form" novalidate class="form-validation">
+    <form name="EditArticleCategoryForm" role="form" novalidate class="form-validation">
+        <input name="Id" type="hidden" value="@Model.Id" />
         <div class="row clearfix">
             <div class="col-sm-12">
                 <div class="form-group form-float">
                     <div class="form-line">
-                        <input class="validate form-control" id="articleCategoryName" type="text" name="Name" required maxlength="32" minlength="2" />
+                        <input class="validate form-control" id="articleCategoryName" type="text" name="Name" required maxlength="32" minlength="2" value="@Model.Name">
                         <label for="articleCategoryName" class="form-label">@L("ArticleCategoryName")</label>
                     </div>
                 </div>
@@ -17,8 +19,8 @@
             <div class="col-sm-12">
                 <div class="form-group form-float">
                     <div class="form-line">
-                        <input class="validate form-control" id="articleCategoryDesc" type="text" name="Desc" required maxlength="32" minlength="2"/>
-                        <label class="form-label" for="articleCategoryDesc">@L("ArticleCategoryDesc")</label>
+                        <input class="validate form-control" id="articleCategoryDesc" type="text" name="Desc" required maxlength="32" minlength="2" value="@Model.Desc" />
+                        <label for="articleCategoryDesc" class="form-label">@L("ArticleCategoryDesc")</label>
                     </div>
                 </div>
             </div>
@@ -27,7 +29,7 @@
             <div class="col-sm-12">
                 <div class="form-group form-float">
                     <div class="">
-                        <input class="filled-in" id="isOpenShown" type="checkbox" name="IsOpenShown" value="true" checked />
+                        <input class="filled-in" id="isOpenShown" type="checkbox" name="IsOpenShown" value="true" @(Model.IsOpenShown ? "checked" : "") />
                         <label class="form-label" for="isOpenShown">@L("IsOpenShown")</label>
                     </div>
                 </div>
@@ -38,9 +40,9 @@
 @Html.Partial("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
 
 <environment names="Development">
-    <script src="~/view-resources/Views/ArticleCategory/_CreateArticleCategoryModal.js" asp-append-version="true"></script>
+    <script src="~/view-resources/Views/ArticleCategory/_EditArticleCategoryModal.js" asp-append-version="true"></script>
 </environment>
 
 <environment names="Staging,Production">
-    <script src="~/view-resources/Views/ArticleCategory/_CreateArticleCategoryModal.min.js" asp-append-version="true"></script>
+    <script src="~/view-resources/Views/ArticleCategory/_EditArticleCategoryModal.min.js" asp-append-version="true"></script>
 </environment>

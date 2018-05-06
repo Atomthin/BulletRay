@@ -2,8 +2,10 @@
 
 namespace BulletRay.Web.Models.ArticleCategory
 {
-    public class CreateArticleCategoryModel
+    public class EditArticleCategoryModel
     {
+        [Required]
+        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
