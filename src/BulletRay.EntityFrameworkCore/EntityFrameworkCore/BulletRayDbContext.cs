@@ -9,7 +9,7 @@ namespace BulletRay.EntityFrameworkCore
 {
     public class BulletRayDbContext : AbpZeroDbContext<Tenant, Role, User, BulletRayDbContext>
     {
-        public virtual DbSet<Article> Posts { get; set; }
+        public virtual DbSet<Article> Articles { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<ArticleCategory> ArticleCategorys { get; set; }

@@ -53,6 +53,13 @@ namespace BulletRay.Web.Startup
                     )
                 ).AddItem(
                     new MenuItemDefinition(
+                        PageNames.Article,
+                        L("Article"),
+                        url: "Article",
+                        icon: "info"
+                    )
+                ).AddItem(
+                    new MenuItemDefinition(
                         PageNames.ArticleCategory,
                         L("ArticleCategory"),
                         url: "ArticleCategory",

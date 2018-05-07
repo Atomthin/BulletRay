@@ -5,8 +5,7 @@ namespace BulletRay.Articles.Dto
     public class GetAllArticleDto : PagedAndSortedResultRequestDto
     {
         public string UserName { get; set; }
+        public int CategoryId { get; set; }
         public string Title { get; set; }
-        public string ShortDesc { get; set; }
-        public bool IsAsc { get; set; } = false;
     }
 }

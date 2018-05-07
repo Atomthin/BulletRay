@@ -13,71 +13,50 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Linq.Dynamic.Core;
 
 namespace BulletRay.Articles
 {
     public class ArticleAppService : AsyncCrudAppService<Article, ArticleDto, long, GetAllArticleDto, CreateArticleDto, UpdateArticleDto>, IArticleAppService
     {
         private readonly IRepository<User, long> _userRepository;
-
-        public ArticleAppService(IRepository<Article, long> articleRepository, IRepository<User, long> userRepository) : base(articleRepository)
+        private readonly IRepository<ArticleCategory, int> _articleCategoryRepository;
+        public ArticleAppService(IRepository<Article, long> articleRepository, IRepository<User, long> userRepository, IRepository<ArticleCategory, int> articleCategoryRepository) : base(articleRepository)
         {
             _userRepository = userRepository;
+            _articleCategoryRepository = articleCategoryRepository;
         }
 
         /// <summary>
-        /// 创建文章
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public override async Task<ArticleDto> Create(CreateArticleDto input)
-        {
-            var entity = input.MapTo<Article>();
-            entity.UserId = AbpSession.UserId.Value;
-            var article = await Repository.InsertAsync(entity);
-            return article.MapTo<ArticleDto>();
-        }
-
-        /// <summary>
-        /// 修改文章
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public override async Task<ArticleDto> Update(UpdateArticleDto input)
-        {
-            var entity = input.MapTo<Article>();
-            entity.LastModifierUserId = AbpSession.UserId.Value;
-            entity.LastModificationTime = DateTime.Now;
-            var article = await Repository.UpdateAsync(entity);
-            return article.MapTo<ArticleDto>();
-        }
-
-        /// <summary>
-        /// 分页查询
+        /// 重写GetAll方法
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         public override async Task<PagedResultDto<ArticleDto>> GetAll(GetAllArticleDto input)
         {
             var query = CreateFilteredQuery(input);
-            switch (input.Sorting)
+            var orderExpression = !string.IsNullOrEmpty(input.Sorting) ? string.Format("{0} {1}", input.Sorting.Split(',')[0], input.Sorting.Split(',')[1]) : string.Empty;
+            if (!string.IsNullOrEmpty(orderExpression))
             {
-                case "Like":
-                    query = input.IsAsc ? query.OrderBy(m => m.Like) : query.OrderByDescending(m => m.Like);
-                    break;
-                case "UnLike":
-                    query = input.IsAsc ? query.OrderBy(m => m.UnLike) : query.OrderByDescending(m => m.UnLike);
-                    break;
-                case "ReadCount":
-                    query = input.IsAsc ? query.OrderBy(m => m.ReadCount) : query.OrderByDescending(m => m.ReadCount);
-                    break;
-                default:
-                    query = input.IsAsc ? query.OrderBy(m => m.Id) : query.OrderByDescending(m => m.Id);
-                    break;
+                query = query.OrderBy(orderExpression);
             }
-            var totalCount = query.Count();
-            var pagedList = await query.PageBy(input).ToListAsync();
-            return new PagedResultDto<ArticleDto>(totalCount, pagedList.MapTo<List<ArticleDto>>());
+            var articleList = new List<Article>();
+            if (input.SkipCount == 0 && input.MaxResultCount == 0)
+            {
+                articleList = await query.ToListAsync();
+            }
+            else
+            {
+                articleList = await query.Skip(input.SkipCount).Take(input.MaxResultCount).ToListAsync();
+            }
+            var pagedList = articleList.MapTo<List<ArticleDto>>();
+            var categoryIdList = pagedList.Select(m => m.Id).Distinct();
+            var categoryList = _articleCategoryRepository.GetAll().Where(m => categoryIdList.Contains(m.Id));
+            foreach (var item in categoryList)
+            {
+                pagedList.Where(m => m.CategoryId == item.Id).ToList().ForEach(m => m.CategoryName = item.Name);
+            }
+            return new PagedResultDto<ArticleDto>(query.Count(), pagedList);
         }
 
         /// <summary>
@@ -91,12 +70,11 @@ namespace BulletRay.Articles
             if (!string.IsNullOrEmpty(input.UserName))
             {
                 query = from user in _userRepository.GetAll()
-                        join article in Repository.GetAll() on user.Id equals article.UserId
+                        join article in Repository.GetAll() on user.Id equals article.CreatorUserId
                         where user.UserName == input.UserName
                         select article;
             }
-            query.WhereIf(!string.IsNullOrEmpty(input.Title), m => m.Title.Contains(input.Title))
-                .WhereIf(!string.IsNullOrEmpty(input.ShortDesc), m => m.ShortDesc.Contains(input.ShortDesc));
+            query.WhereIf(!string.IsNullOrEmpty(input.Title), m => m.Title.Contains(input.Title)).WhereIf(input.CategoryId != 0, m => m.CategoryId == input.CategoryId);
             return query;
         }
 

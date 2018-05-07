@@ -1031,11 +1031,9 @@ namespace BulletRay.Migrations
 
                     b.Property<int?>("UnLike");
 
-                    b.Property<long>("UserId");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Articles");
                 });
 
             modelBuilder.Entity("BulletRay.Blog.ArticleCategory", b =>

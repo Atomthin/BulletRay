@@ -47,5 +47,10 @@ namespace BulletRay.ArticleCategorys
             }
             return new PagedResultDto<ArticleCategoryDto>(query.Count(), pagedList.MapTo<List<ArticleCategoryDto>>());
         }
+
+        public async Task<List<ArticleCategoryIdDto>> GetArticleCategoryIdList()
+        {
+            return await Repository.GetAll().Select(m => new ArticleCategoryIdDto { Id = m.Id, Name = m.Name, Desc = m.Desc }).ToListAsync();
+        }
     }
 }

@@ -160,5 +160,11 @@
     "inputFiles": [
       "wwwroot/view-resources/Views/ArticleCategory/_EditArticleCategoryModal.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/summernote-0.8.9-dist/dist/summernote.min.css",
+    "inputFiles": [
+      "wwwroot/lib/summernote-0.8.9-dist/dist/summernote.css"
+    ]
   }
 ]

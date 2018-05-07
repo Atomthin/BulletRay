@@ -23,8 +23,6 @@ namespace BulletRay.Blog
         public virtual int? UnLike { get; set; }
         public virtual int? Tag { get; set; }
         [Required]
-        public virtual long UserId { get; set; }
-        [Required]
         public virtual bool IsTop { get; set; }
         [Required]
         public virtual int CategoryId { get; set; }
