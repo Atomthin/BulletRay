@@ -9,18 +9,23 @@
     <text name="Comment" value="评论和留言" />
     <text name="Tag" value="内容标签" />
     <!--导航页面-->
+    <text name="PleaseWait" value="请稍等..."></text>
 
     <text name="EditName" value="修改角色" />
     <text name="CreateNewRole" value="创建角色" />
     <text name="RoleName" value="角色名称" />
     <text name="DisplayName" value="显示名称" />
 
+    <text name="CreateArticle" value="创建文章" />
     <text name="ArticleList" value="文章列表" />
     <text name="ArticleListManage" value="文章列表管理" />
+    <text name="ArticleTitle" value="文章标题" />
+    <text name="ArticleShortDesc" value="文章短介绍" />
+    <text name="IsTop" value="是否置顶" />
     <text name="SearchArticleCategoryId" value="文章分类" />
     <text name="SearchArticleUserName" value="文章创建者姓名" />
     <text name="SearchArticleTitle" value="文章标题" />
-    
+
     <text name="CreateArticleCategory" value="创建文章分类" />
     <text name="EditArticleCategory" value="修改文章分类" />
     <text name="ArticleCategoryName" value="文章分类名称" />

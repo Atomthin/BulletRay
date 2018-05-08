@@ -5,6 +5,7 @@ using Abp.Domain.Repositories;
 using Abp.Linq.Extensions;
 using Abp.Runtime.Validation;
 using BulletRay.ArticleCategorys.Dto;
+using BulletRay.Articles;
 using BulletRay.Blog;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -16,8 +17,10 @@ namespace BulletRay.ArticleCategorys
 {
     public class ArticleCategoryAppService : AsyncCrudAppService<ArticleCategory, ArticleCategoryDto, int, GetAllArticleCategoryDto, CreateArticleCategoryDto, UpdateArticleCategoryDto>, IArticleCategoryAppService
     {
-        public ArticleCategoryAppService(IRepository<ArticleCategory, int> articleCategoryRepostory) : base(articleCategoryRepostory)
+        private readonly IRepository<Article, long> _articleRepository;
+        public ArticleCategoryAppService(IRepository<ArticleCategory, int> articleCategoryRepostory, IRepository<Article, long> articleRepository) : base(articleCategoryRepostory)
         {
+            _articleRepository = articleRepository;
         }
 
         /// <summary>
@@ -48,9 +51,23 @@ namespace BulletRay.ArticleCategorys
             return new PagedResultDto<ArticleCategoryDto>(query.Count(), pagedList.MapTo<List<ArticleCategoryDto>>());
         }
 
-        public async Task<List<ArticleCategoryIdDto>> GetArticleCategoryIdList()
+        public async Task<List<ArticleCategoryIdDto>> GetArticleCategoryIdList(long? articleId, bool isOpenShown = false)
         {
-            return await Repository.GetAll().Select(m => new ArticleCategoryIdDto { Id = m.Id, Name = m.Name, Desc = m.Desc }).ToListAsync();
+            var query = Repository.GetAll().Where(m => m.IsOpenShown == isOpenShown);
+            if (isOpenShown)
+            {
+                query = Repository.GetAll();
+            }
+            var list = await query.Select(m => new ArticleCategoryIdDto { Id = m.Id, Name = m.Name, Desc = m.Desc, IsSelected = false }).ToListAsync();
+            if (articleId != null)
+            {
+                var articleInfo = await _articleRepository.FirstOrDefaultAsync(m => m.Id == articleId);
+                if (articleInfo != null)
+                {
+                    list.FirstOrDefault(m => m.Id == articleInfo.CategoryId).IsSelected = true;
+                }
+            }
+            return list;
         }
     }
 }

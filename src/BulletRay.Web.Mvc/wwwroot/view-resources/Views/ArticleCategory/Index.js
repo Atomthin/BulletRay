@@ -42,6 +42,7 @@
     });
 
     $("#resultTable").on("click", ".edit-articlecategory", function (e) {
+        $(".page-loader-wrapper").show();
         var articleCategoryId = $(this).data("articlecategory-id");
         e.preventDefault();
         $.ajax({
@@ -49,6 +50,7 @@
             type: "get",
             contentType: "application/html",
             success: function (content) {
+                $(".page-loader-wrapper").hide();
                 $("#EditArticleCategoryModal div.modal-content").html(content);
             },
             error: function (e) { }

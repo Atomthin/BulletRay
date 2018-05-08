@@ -1,23 +1,22 @@
 ﻿$(function () {
     GetSelectData();
     InitTable();
-    $("#resultTable").on("xhr.dt", function () {
-        $("#btnSearch").button("reset");
-    });
 });
 
 function GetSelectData() {
     $.ajax({
-        url: abp.appPath + "Article/GetSelectData",
+        url: abp.appPath + "ArticleCategory/GetArticleCategorySelectData",
         type: "GET",
+        data: "isOpenShown=true",
         contentType: "application/json",
         success: function (data) {
             var optionStr = "";
             $.each(data, function (key, value) {
-                optionStr += "<option data-subtext=" + value.desc + " value=" + value.id + ">" + value.name + "</option>";
+                var selectedStr = value.isSelected ? "selected" : "";
+                optionStr += "<option data-subtext=" + value.desc + " value=" + value.id + selectedStr + ">" + value.name + "</option>";
             });
-            $("#articleCategoryId").append(optionStr);
-            $("#articleCategoryId").selectpicker("refresh");
+            $(".selectpicker").append(optionStr);
+            $(".selectpicker").selectpicker("refresh");
         },
         error: function (e) { }
     });
@@ -102,5 +101,9 @@ function InitTable() {
     $("#btnSearch").on("click", function () {
         $("#btnSearch").button("loading");
         table.api().ajax.reload();
+    });
+
+    $("#resultTable").on("xhr.dt", function () {
+        $("#btnSearch").button("reset");
     });
 }

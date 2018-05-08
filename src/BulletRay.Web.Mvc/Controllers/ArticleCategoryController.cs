@@ -49,6 +49,14 @@ namespace BulletRay.Web.Controllers
             return PartialView("_EditArticleCategoryModal", model);
         }
 
+        [HttpGet]
+        [DontWrapResult]
+        public async Task<JsonResult> GetArticleCategorySelectData(long? articleId, bool isOpenShown = false)
+        {
+            var dto = await _articleCategoryAppService.GetArticleCategoryIdList(articleId, isOpenShown);
+            return Json(dto);
+        }
+
         [HttpPost]
         [DontWrapResult]
         public async Task<JsonResult> GetDatas([FromBody]ArticleCategoryQuery query)

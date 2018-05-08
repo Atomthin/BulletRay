@@ -7,6 +7,6 @@ namespace BulletRay.ArticleCategorys
 {
     public interface IArticleCategoryAppService : IAsyncCrudAppService<ArticleCategoryDto, int, GetAllArticleCategoryDto, CreateArticleCategoryDto, UpdateArticleCategoryDto>
     {
-        Task<List<ArticleCategoryIdDto>> GetArticleCategoryIdList();
+        Task<List<ArticleCategoryIdDto>> GetArticleCategoryIdList(long? articleId, bool isOpenShown = false);
     }
 }

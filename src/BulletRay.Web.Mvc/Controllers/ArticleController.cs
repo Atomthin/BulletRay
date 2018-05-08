@@ -1,16 +1,11 @@
-﻿using Abp.AutoMapper;
-using Abp.Web.Models;
+﻿using Abp.Web.Models;
 using BulletRay.ArticleCategorys;
 using BulletRay.Articles;
 using BulletRay.Articles.Dto;
 using BulletRay.Controllers;
-using BulletRay.Export;
 using BulletRay.Web.Models.Article;
 using BulletRay.Web.Models.Common;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BulletRay.Web.Mvc.Controllers
@@ -29,14 +24,6 @@ namespace BulletRay.Web.Mvc.Controllers
         public IActionResult Index()
         {
             return View();
-        }
-
-        [HttpGet]
-        [DontWrapResult]
-        public async Task<JsonResult> GetSelectData()
-        {
-            var dto = await _articleCategoryAppService.GetArticleCategoryIdList();
-            return Json(dto);
         }
 
         [HttpPost]
