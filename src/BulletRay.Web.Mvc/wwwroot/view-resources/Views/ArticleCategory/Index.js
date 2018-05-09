@@ -142,11 +142,19 @@ function InitTable() {
                     } else
                         return new Date(data).toLocaleString("zh-cn", { hour12: false })
                 }
+            },
+            {
+                "data": "isOpenShown",
+                "class": "align-center",
+                "render": function (data, type, row, meta) {
+                    var checkedStr = data ? "checked" : "";
+                    return "<input class='filled-in chk-col-teal' id=" + row.id + "IsOpenShwon type = 'checkbox' value = 'true' " + checkedStr + " disabled /><label for=" + row.id + "IsOpenShwon />";
+                }
             }
         ],
         "columnDefs": [
             {
-                "targets": 5,
+                "targets": 6,
                 "data": "id",
                 "class": "dropdown align-center",
                 "render": function (data, type, row, meta) {
