@@ -1,6 +1,7 @@
 ﻿$(function () {
     GetSelectData();
     InitTable();
+    InitFileInput();
 });
 
 function GetSelectData() {
@@ -105,5 +106,21 @@ function InitTable() {
 
     $("#resultTable").on("xhr.dt", function () {
         $("#btnSearch").button("reset");
+    });
+}
+
+function InitFileInput() {
+    $("#inputAttachment").fileinput({
+        uploadAsync: false,
+        maxFileSize: 102400,
+        language: "zh",
+        theme: "fa",
+        allowedFileExtensions: ["jpg", "png", "jpeg", "zip"],
+        showUpload: false,
+        showCaption: false,
+        browseClass: "btn btn-sm btn-primary",
+        fileActionSettings: { showRemove: true, showUpload: false, showZoom: false },
+        uploadUrl: "#",
+        dropZoneTitle: "拖拽文件到这里, 只支持 jpg, png, jpeg, zip的文件!"
     });
 }

@@ -8,11 +8,15 @@
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/jquery-datatable/dataTables.bootstrap.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/lib/bootstrap-select/dist/css/bootstrap-select.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/bootstrap-fileinput/fileinput.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/summernote-0.8.9-dist/dist/summernote.css" asp-append-version="true" />
     </environment>
 
     <environment names="Staging,Production">
         <link rel="stylesheet" href="~/lib/jquery-datatable/dataTables.bootstrap.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/lib/bootstrap-select/dist/css/bootstrap-select.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/bootstrap-fileinput/fileinput.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/summernote-0.8.9-dist/dist/summernote.min.css" asp-append-version="true" />
     </environment>
 }
 @section scripts
@@ -23,6 +27,8 @@
         <script src="~/lib/jquery-datatable/dataTables.bootstrap.min.js" asp-append-version="true"></script>
         <script src="~/lib/bootstrap-select/dist/js/bootstrap-select.js" asp-append-version="true"></script>
         <script src="~/lib/bootstrap-select/dist/js/i18n/defaults-zh_CN.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap-fileinput/fileinput.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap-fileinput/zh.js" asp-append-version="true"></script>
     </environment>
 
     <environment names="Staging,Production">
@@ -31,6 +37,8 @@
         <script src="~/lib/jquery-datatable/dataTables.bootstrap.min.js" asp-append-version="true"></script>
         <script src="~/lib/bootstrap-select/dist/js/bootstrap-select.min.js" asp-append-version="true"></script>
         <script src="~/lib/bootstrap-select/dist/js/i18n/defaults-zh_CN.min.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap-fileinput/fileinput.min.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap-fileinput/zh.min.js" asp-append-version="true"></script>
     </environment>
 }
 
