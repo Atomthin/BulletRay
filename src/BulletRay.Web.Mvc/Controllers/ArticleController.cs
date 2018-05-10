@@ -42,5 +42,11 @@ namespace BulletRay.Web.Mvc.Controllers
             return Json(new DataTableResultModel<ArticleDto>(query.Draw, list.TotalCount, list.TotalCount,
                 list.Items));
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }

@@ -1,0 +1,109 @@
+﻿@{
+    ViewData["Title"] = L("CreateArticle");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles
+    {
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap-select/dist/css/bootstrap-select.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/bootstrap-fileinput/fileinput.css" asp-append-version="true" />
+    </environment>
+
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib/bootstrap-select/dist/css/bootstrap-select.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/bootstrap-fileinput/fileinput.min.css" asp-append-version="true" />
+    </environment>
+}
+
+@section scripts
+    {
+    <environment names="Development">
+        <script src="~/lib/bootstrap-select/dist/js/bootstrap-select.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap-select/dist/js/i18n/defaults-zh_CN.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap-fileinput/fileinput.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap-fileinput/zh.js" asp-append-version="true"></script>
+        <script src="~/lib/tinymce/tinymce.min.js" asp-append-version="true"></script>
+        <script src="~/view-resources/Views/Article/Create.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/lib/bootstrap-select/dist/js/bootstrap-select.min.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap-select/dist/js/i18n/defaults-zh_CN.min.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap-fileinput/fileinput.min.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap-fileinput/zh.min.js" asp-append-version="true"></script>
+        <script src="~/lib/tinymce/tinymce.min.js" asp-append-version="true"></script>
+        <script src="~/view-resources/Views/Article/Create.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>@L("CreateArticle")</h2>
+            </div>
+            <div class="body">
+                <form name="CreateArticleForm" role="form" novalidate class="form-validation">
+                    <div class="row clearfix">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group form-float">
+                                <select class="form-control selectpicker" id="categorySelect" name="CategoryId" data-live-search="true" data-show-subtext="true"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    <input class="validate form-control" id="articleTitle" type="text" name="Title" required />
+                                    <label class="form-label" for="articleTitle">@L("ArticleTitle")</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    <input class="validate form-control" id="articleShortDesc" type="text" name="ShortDesc" />
+                                    <label class="form-label" for="articleShortDesc">@L("ArticleShortDesc")</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group form-float">
+                                <div class="">
+                                    <input class="filled-in" id="isTop" type="checkbox" name="IsTop" value="true" />
+                                    <label class="form-label" for="isTop">@L("IsTop")</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <input class="file-loading ignore" id="inputAttachment" name="inputAttachment[]" type="file" multiple />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <textarea id="tinyMce" name="Content"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row clearfix">
+                    <div class="col-sm-offset-10">
+                        <a class="btn btn-sm btn-primary" id="btnSubmit">@L("Save")</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
