@@ -2,6 +2,7 @@
     GetSelectData();
     InitFileInput();
     InitTinyMce();
+    InitTypeahead();
 });
 
 function GetSelectData() {
@@ -55,5 +56,34 @@ function InitFileInput() {
         fileActionSettings: { showRemove: true, showUpload: false, showZoom: false },
         uploadUrl: "#",
         dropZoneTitle: "添加文章封面图片!! 拖拽文件到这里, 只支持 jpg, png, jpeg, zip的文件!"
+    });
+}
+
+function InitTypeahead() {
+    var getTagUrl = $("#tagUrl").val() + "?start=0&length=20&tagKeyStr=%QUERY";
+    var tagList = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace("TagName"),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+            url: getTagUrl,
+            wildcard: "%QUERY"
+        }
+    });
+    $("#typeaheadTag").typeahead(null, {
+        name: "tag",
+        display: "TagName",
+        source: tagList,
+        limit: 20
+    }).on("typeahead:select", function (ev, data) {
+        $("#tagDiv").append(data["TagName"]);
+        $("#tagStr").val($("#tagStr").val() + data["TagName"]);
+    });
+    $("#typeaheadTag").on("keydown", function (e) {
+        var event = e || window.event;
+        var key = event.which || event.keyCode || event.charCode;
+        if (key == 13) {
+            $("#tagDiv").append($(this).val());
+            $(this).val("");
+        }
     });
 }

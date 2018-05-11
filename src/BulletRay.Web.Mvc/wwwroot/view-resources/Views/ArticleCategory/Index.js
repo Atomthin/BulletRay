@@ -2,11 +2,13 @@
     var _articleCategoryService = abp.services.app.articleCategory;
 
     $("#btnCreate").click(function (e) {
+        $(".page-loader-wrapper").show();
         $.ajax({
             url: abp.appPath + "ArticleCategory/Create",
             type: "GET",
             contentType: "application/html",
             success: function (content) {
+                $(".page-loader-wrapper").hide();
                 $("#CreateArticleCategoryModal div.modal-content").html(content);
             },
             error: function (e) { }

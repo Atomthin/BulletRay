@@ -1,4 +1,5 @@
-﻿using Abp.Web.Models;
+﻿using Abp.AspNetCore.Mvc.Authorization;
+using Abp.Web.Models;
 using BulletRay.ArticleCategorys;
 using BulletRay.Articles;
 using BulletRay.Articles.Dto;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace BulletRay.Web.Mvc.Controllers
 {
+    [AbpMvcAuthorize]
     public class ArticleController : BulletRayControllerBase
     {
         private readonly IArticleAppService _articleAppService;

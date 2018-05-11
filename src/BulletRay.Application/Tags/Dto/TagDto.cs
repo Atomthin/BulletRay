@@ -5,9 +5,8 @@ using BulletRay.Blog;
 namespace BulletRay.Tags.Dto
 {
     [AutoMap(typeof(Tag))]
-    public class TagDto : FullAuditedEntityDto<int>
+    public class TagDto : CreationAuditedEntityDto<int>
     {
         public string TagName { get; set; }
-        public bool IsActive { get; set; }
     }
 }

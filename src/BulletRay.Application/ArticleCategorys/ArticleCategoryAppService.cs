@@ -5,7 +5,6 @@ using Abp.Domain.Repositories;
 using Abp.Linq.Extensions;
 using Abp.Runtime.Validation;
 using BulletRay.ArticleCategorys.Dto;
-using BulletRay.Articles;
 using BulletRay.Blog;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;

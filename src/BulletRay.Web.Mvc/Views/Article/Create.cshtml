@@ -24,6 +24,9 @@
         <script src="~/lib/bootstrap-fileinput/fileinput.js" asp-append-version="true"></script>
         <script src="~/lib/bootstrap-fileinput/zh.js" asp-append-version="true"></script>
         <script src="~/lib/tinymce/tinymce.min.js" asp-append-version="true"></script>
+        <script src="~/lib/typeahead/bloodhound.min.js" asp-append-version="true"></script>
+        <script src="~/lib/typeahead/typeahead.bundle.min.js" asp-append-version="true"></script>
+        <script src="~/lib/typeahead/typeahead.jquery.min.js" asp-append-version="true"></script>
         <script src="~/view-resources/Views/Article/Create.js" asp-append-version="true"></script>
     </environment>
 
@@ -33,6 +36,9 @@
         <script src="~/lib/bootstrap-fileinput/fileinput.min.js" asp-append-version="true"></script>
         <script src="~/lib/bootstrap-fileinput/zh.min.js" asp-append-version="true"></script>
         <script src="~/lib/tinymce/tinymce.min.js" asp-append-version="true"></script>
+        <script src="~/lib/typeahead/bloodhound.min.js" asp-append-version="true"></script>
+        <script src="~/lib/typeahead/typeahead.bundle.min.js" asp-append-version="true"></script>
+        <script src="~/lib/typeahead/typeahead.jquery.min.js" asp-append-version="true"></script>
         <script src="~/view-resources/Views/Article/Create.min.js" asp-append-version="true"></script>
     </environment>
 }
@@ -44,6 +50,7 @@
                 <h2>@L("CreateArticle")</h2>
             </div>
             <div class="body">
+                <input id="tagUrl" type="hidden" value="@Url.Action("GetData","Tag")" />
                 <form name="CreateArticleForm" role="form" novalidate class="form-validation">
                     <div class="row clearfix">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -74,6 +81,13 @@
                     </div>
                     <div class="row clearfix">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <textarea id="tinyMce" name="Content"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group form-float">
                                 <div class="">
                                     <input class="filled-in" id="isTop" type="checkbox" name="IsTop" value="true" />
@@ -84,15 +98,19 @@
                     </div>
                     <div class="row clearfix">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-group">
-                                <input class="file-loading ignore" id="inputAttachment" name="inputAttachment[]" type="file" multiple />
+                            <div class="form-group form-float">
+                                <div class="">
+                                    <input class="form-control ignore" id="typeaheadTag" type="text" placeholder="请输入标签名字，有则选择，无则添加" />
+                                    <input id="tagStr" name="Tag" type="hidden" value="" />
+                                    <div id="tagDiv" style="width:500px;height:300px;"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="row clearfix">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group">
-                                <textarea id="tinyMce" name="Content"></textarea>
+                                <input class="file-loading ignore" id="inputAttachment" name="inputAttachment[]" type="file" multiple />
                             </div>
                         </div>
                     </div>
