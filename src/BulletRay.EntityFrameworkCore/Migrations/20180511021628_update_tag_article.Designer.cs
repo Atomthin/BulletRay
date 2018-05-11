@@ -16,9 +16,10 @@ using System;
 namespace BulletRay.Migrations
 {
     [DbContext(typeof(BulletRayDbContext))]
-    partial class BulletRayDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180511021628_update_tag_article")]
+    partial class update_tag_article
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
