@@ -12,5 +12,7 @@ namespace BulletRay.Blog
         }
         [Required]
         public virtual string TagName { get; set; }
+        [Required]
+        public virtual long TagNum { get; set; }
     }
 }

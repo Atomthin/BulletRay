@@ -178,5 +178,29 @@
     "inputFiles": [
       "wwwroot/view-resources/Views/Article/Create.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/bootstrap-tagsinput/bootstrap-tagsinput.min.css",
+    "inputFiles": [
+      "wwwroot/lib/bootstrap-tagsinput/bootstrap-tagsinput.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/bootstrap-fileinput/zh.min.js",
+    "inputFiles": [
+      "wwwroot/lib/bootstrap-fileinput/zh.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/bootstrap-tagsinput/bootstrap-tagsinput.min.js",
+    "inputFiles": [
+      "wwwroot/lib/bootstrap-tagsinput/bootstrap-tagsinput.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/typeahead/typeahead.min.css",
+    "inputFiles": [
+      "wwwroot/lib/typeahead/typeahead.css"
+    ]
   }
 ]

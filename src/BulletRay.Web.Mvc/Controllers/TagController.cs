@@ -29,7 +29,7 @@ namespace BulletRay.Web.Mvc.Controllers
         public async Task<JsonResult> GetData(int? draw, int start, int length, string tagKeyStr)
         {
             var pageList = await _tagAppService.GetAll(new GetAllTagDto() { SkipCount = start, MaxResultCount = length, TagKeyStr = tagKeyStr });
-            return Json(pageList.Items.Select(m => new { m.Id, m.TagName }).ToList());
+            return Json(pageList.Items.Select(m => new { m.Id, m.TagName, m.TagNum }).ToList());
         }
     }
 }

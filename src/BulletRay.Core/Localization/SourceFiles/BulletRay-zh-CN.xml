@@ -1,16 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="zh-CN">
   <texts>
+    <text name="BulletRay" value="子弹射线"/>
+    <text name="WellcomeMessage" value="欢迎来到子弹射线!" />
     <!--导航页面-->
     <text name="HomePage" value="主页" />
+    <text name="Users" value="用户"/>
+    <text name="Tenants" value="部门"/>
+    <text name="Roles" value="角色"/>
     <text name="About" value="关于我们" />
     <text name="Article" value="文章" />
     <text name="ArticleCategory" value="文章分类" />
     <text name="Comment" value="评论和留言" />
     <text name="Tag" value="内容标签" />
     <!--导航页面-->
-    <text name="PleaseWait" value="请稍等..."></text>
 
+    <text name="PleaseWait" value="请稍等..."/>
     <text name="EditName" value="修改角色" />
     <text name="CreateNewRole" value="创建角色" />
     <text name="RoleName" value="角色名称" />
@@ -22,9 +27,8 @@
     <text name="ArticleTitle" value="文章标题" />
     <text name="ArticleShortDesc" value="文章短介绍" />
     <text name="IsTop" value="是否置顶" />
-    <text name="SearchArticleCategoryId" value="文章分类" />
-    <text name="SearchArticleUserName" value="文章创建者姓名" />
-    <text name="SearchArticleTitle" value="文章标题" />
+    <text name="ArticleUserName" value="文章创建者姓名" />
+    <text name="ArticleTags" value="文章标签："/>
 
     <text name="CreateArticleCategory" value="创建文章分类" />
     <text name="EditArticleCategory" value="修改文章分类" />
@@ -34,7 +38,6 @@
     <text name="SearchArticleCategoryName" value="文章分类名称" />
     <text name="SearchArticleCategoryDesc" value="文章分类介绍" />
 
-    <text name="WellcomeMessage" value="欢迎使用 BulletRay!" />
     <text name="Save" value="保存" />
     <text name="Cancel" value="取消" />
 
@@ -51,6 +54,8 @@
     <text name="Password" value="密码" />
     <text name="RememberMe" value="记住我" />
     <text name="LogIn" value="登录" />
+    <text name="Logout" value="注销" />
+    <text name="Register" value="注册"/>
 
     <text name="LoginFailed" value="登录失败!" />
 

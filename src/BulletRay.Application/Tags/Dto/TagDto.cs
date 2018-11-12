@@ -8,5 +8,6 @@ namespace BulletRay.Tags.Dto
     public class TagDto : CreationAuditedEntityDto<int>
     {
         public string TagName { get; set; }
+        public long TagNum { get; set; }
     }
 }

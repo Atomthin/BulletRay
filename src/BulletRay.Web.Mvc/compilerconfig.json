@@ -10,5 +10,13 @@
   {
     "outputFile": "wwwroot/view-resources/Views/Shared/_Layout.css",
     "inputFile": "wwwroot/view-resources/Views/Shared/_Layout.less"
+  },
+  {
+    "outputFile": "wwwroot/scss/Views/Article/create.css",
+    "inputFile": "wwwroot/scss/Views/Article/create.scss"
+  },
+  {
+    "outputFile": "wwwroot/lib/bootstrap-tagsinput/bootstrap-tagsinput.css",
+    "inputFile": "wwwroot/lib/bootstrap-tagsinput/bootstrap-tagsinput.less"
   }
 ]

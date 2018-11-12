@@ -85,6 +85,8 @@ namespace BulletRay.Web.Host.Startup
                 });
                 // Assign scope requirements to operations based on AuthorizeAttribute
                 options.OperationFilter<SecurityRequirementsOperationFilter>();
+                // 注册SwaggerFileUploadFilter
+                options.OperationFilter<SwaggerFileUploadFilter>();
             });
 
             // Configure Abp and Dependency Injection

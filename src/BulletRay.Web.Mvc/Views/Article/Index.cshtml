@@ -1,5 +1,4 @@
-﻿@using BulletRay.Web.Models.Common.Modals
-@{
+﻿@{
     ViewData["Title"] = L("ArticleListManage");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -58,7 +57,7 @@
                             <div class="form-group form-float">
                                 <div class="form-line">
                                     <input class="form-control" id="articleCategoryName" name="UserName" type="text" />
-                                    <label for="articleCategoryName" class="form-label">@L("SearchArticleUserName")</label>
+                                    <label for="articleCategoryName" class="form-label">@L("ArticleUserName")</label>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +65,7 @@
                             <div class="form-group form-float">
                                 <div class="form-line">
                                     <input class="form-control" id="articleCategoryDesc" name="Title" type="text" />
-                                    <label for="articleCategoryDesc" class="form-label">@L("SearchArticleTitle")</label>
+                                    <label for="articleCategoryDesc" class="form-label">@L("ArticleTitle")</label>
                                 </div>
                             </div>
                         </div>
@@ -99,84 +98,7 @@
                         </thead>
                     </table>
                 </div>
-                <div class="row">
-                    <a class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right m-r-15" id="btnCreate" data-toggle="modal" data-target="#CreateArticleModal">
-                        <i class="material-icons">add</i>
-                    </a>
-                </div>
             </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="CreateArticleModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            @Html.Partial("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateArticle")))
-            <div class="modal-body">
-                <form name="CreateArticleForm" role="form" novalidate class="form-validation">
-                    <div class="row clearfix">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-group form-float">
-                                <select class="form-control selectpicker" name="CategoryId" data-live-search="true" data-show-subtext="true"></select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row clearfix">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-group form-float">
-                                <div class="form-line">
-                                    <input class="validate form-control" id="articleTitle" type="text" name="Title" required maxlength="32" minlength="2" />
-                                    <label class="form-label" for="articleTitle">@L("ArticleTitle")</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row clearfix">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-group form-float">
-                                <div class="form-line">
-                                    <input class="validate form-control" id="articleShortDesc" type="text" name="ShortDesc" maxlength="60" />
-                                    <label class="form-label" for="articleShortDesc">@L("ArticleShortDesc")</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row clearfix">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-group form-float">
-                                <div class="">
-                                    <input class="filled-in" id="isTop" type="checkbox" name="IsTop" value="true" />
-                                    <label class="form-label" for="isTop">@L("IsTop")</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row clearfix">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-group form-float">
-                                <div class="">
-                                    <label class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label"><a class="remove-text-decoration" data-toggle="collapse" href="#uploadFileDiv">添加文章封面图片：</a></label>
-                                    <div class="col-lg-9 col-md-9 col-sx-9 col-xs-9 collapse" id="uploadFileDiv">
-                                        <input class="file-loading ignore" id="inputAttachment" name="inputAttachment[]" type="file" multiple>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row clearfix">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-group form-float">
-                                <div class="">
-                                    <div id="articleRichEditor"></div>
-                                    <input id="articleContent" name="Content" type="hidden" value="" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            @Html.Partial("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
         </div>
     </div>
 </div>

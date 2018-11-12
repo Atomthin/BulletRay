@@ -84,5 +84,6 @@
     <text name="UserDetails">User details</text>
     <text name="UserRoles">User roles</text>
     <text name="ConfirmPassword">Confirm password</text>
+    <text name="BulletRay" value="BulletRay"/>
   </texts>
 </localizationDictionary>

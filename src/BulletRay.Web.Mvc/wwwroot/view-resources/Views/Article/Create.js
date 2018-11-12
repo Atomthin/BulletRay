@@ -30,12 +30,12 @@ function InitTinyMce() {
         theme: "modern",
         height: 300,
         plugins: [
-            'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+            'advlist autolink lists link uploadimage charmap print preview hr anchor pagebreak',
             'searchreplace wordcount visualblocks visualchars code fullscreen',
             'insertdatetime media nonbreaking save table contextmenu directionality',
             'emoticons template paste textcolor colorpicker textpattern imagetools'
         ],
-        toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+        toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link uploadimage',
         toolbar2: 'print preview media | forecolor backcolor emoticons',
         image_advtab: true,
         language: "zh_CN"
@@ -69,21 +69,14 @@ function InitTypeahead() {
             wildcard: "%QUERY"
         }
     });
-    $("#typeaheadTag").typeahead(null, {
-        name: "tag",
-        display: "TagName",
-        source: tagList,
-        limit: 20
-    }).on("typeahead:select", function (ev, data) {
-        $("#tagDiv").append(data["TagName"]);
-        $("#tagStr").val($("#tagStr").val() + data["TagName"]);
-    });
-    $("#typeaheadTag").on("keydown", function (e) {
-        var event = e || window.event;
-        var key = event.which || event.keyCode || event.charCode;
-        if (key == 13) {
-            $("#tagDiv").append($(this).val());
-            $(this).val("");
+    $("#typeaheadTag").tagsinput({
+        itemValue: "tagName",
+        itemText: "tagName",
+        typeaheadjs: {
+            name: "tag",
+            displayKey: "tagName",
+            source: tagList.ttAdapter(),
+            limit: 20
         }
     });
 }

@@ -8,11 +8,17 @@
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap-select/dist/css/bootstrap-select.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/lib/bootstrap-fileinput/fileinput.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/bootstrap-tagsinput/bootstrap-tagsinput.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/Views/Article/create.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/typeahead/typeahead.css" asp-append-version="true" />
     </environment>
 
     <environment names="Staging,Production">
         <link rel="stylesheet" href="~/lib/bootstrap-select/dist/css/bootstrap-select.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/lib/bootstrap-fileinput/fileinput.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/bootstrap-tagsinput/bootstrap-tagsinput.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/Views/Article/create.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/typeahead/typeahead.min.css" asp-append-version="true" />
     </environment>
 }
 
@@ -27,6 +33,7 @@
         <script src="~/lib/typeahead/bloodhound.min.js" asp-append-version="true"></script>
         <script src="~/lib/typeahead/typeahead.bundle.min.js" asp-append-version="true"></script>
         <script src="~/lib/typeahead/typeahead.jquery.min.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap-tagsinput/bootstrap-tagsinput.js" asp-append-version="true"></script>
         <script src="~/view-resources/Views/Article/Create.js" asp-append-version="true"></script>
     </environment>
 
@@ -39,6 +46,7 @@
         <script src="~/lib/typeahead/bloodhound.min.js" asp-append-version="true"></script>
         <script src="~/lib/typeahead/typeahead.bundle.min.js" asp-append-version="true"></script>
         <script src="~/lib/typeahead/typeahead.jquery.min.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap-tagsinput/bootstrap-tagsinput.min.js" asp-append-version="true"></script>
         <script src="~/view-resources/Views/Article/Create.min.js" asp-append-version="true"></script>
     </environment>
 }
@@ -53,14 +61,12 @@
                 <input id="tagUrl" type="hidden" value="@Url.Action("GetData","Tag")" />
                 <form name="CreateArticleForm" role="form" novalidate class="form-validation">
                     <div class="row clearfix">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <div class="form-group form-float">
                                 <select class="form-control selectpicker" id="categorySelect" name="CategoryId" data-live-search="true" data-show-subtext="true"></select>
                             </div>
                         </div>
-                    </div>
-                    <div class="row clearfix">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <div class="form-group form-float">
                                 <div class="form-line">
                                     <input class="validate form-control" id="articleTitle" type="text" name="Title" required />
@@ -80,30 +86,31 @@
                         </div>
                     </div>
                     <div class="row clearfix">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-group">
-                                <textarea id="tinyMce" name="Content"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row clearfix">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                             <div class="form-group form-float">
-                                <div class="">
+                                <div class="m-t-10">
                                     <input class="filled-in" id="isTop" type="checkbox" name="IsTop" value="true" />
                                     <label class="form-label" for="isTop">@L("IsTop")</label>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                            <div class="form-group form-float">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <label>@L("ArticleTags")</label>
+                                    </span>
+                                    <div class="form-line">
+                                        <input class="form-control ignore" id="typeaheadTag" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="row clearfix">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-group form-float">
-                                <div class="">
-                                    <input class="form-control ignore" id="typeaheadTag" type="text" placeholder="请输入标签名字，有则选择，无则添加" />
-                                    <input id="tagStr" name="Tag" type="hidden" value="" />
-                                    <div id="tagDiv" style="width:500px;height:300px;"></div>
-                                </div>
+                            <div class="form-group">
+                                <textarea id="tinyMce" name="Content"></textarea>
                             </div>
                         </div>
                     </div>
@@ -116,7 +123,7 @@
                     </div>
                 </form>
                 <div class="row clearfix">
-                    <div class="col-sm-offset-10">
+                    <div class="col-lg-offset-11 col-md-offset-11 col-sm-offset-11 col-xs-offset-11">
                         <a class="btn btn-sm btn-primary" id="btnSubmit">@L("Save")</a>
                     </div>
                 </div>

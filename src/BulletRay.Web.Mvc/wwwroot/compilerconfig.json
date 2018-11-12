@@ -82,5 +82,9 @@
   {
     "outputFile": "css/style.css",
     "inputFile": "scss/style.scss"
+  },
+  {
+    "outputFile": "css/Views/Article/create.css",
+    "inputFile": "scss/Views/Article/create.scss"
   }
 ]

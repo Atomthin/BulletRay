@@ -21,7 +21,8 @@ namespace BulletRay.Blog
         public virtual string CoverImgUrl { get; set; }
         public virtual int? Like { get; set; }
         public virtual int? UnLike { get; set; }
-        public virtual string Tag { get; set; }
+        public virtual long? TagNum { get; set; }
+        public virtual string TagStr { get; set; }
         [Required]
         public virtual bool IsTop { get; set; }
         [Required]

@@ -1024,7 +1024,9 @@ namespace BulletRay.Migrations
 
                     b.Property<string>("ShortDesc");
 
-                    b.Property<string>("Tag");
+                    b.Property<long?>("TagNum");
+
+                    b.Property<string>("TagStr");
 
                     b.Property<string>("Title")
                         .IsRequired();
@@ -1118,6 +1120,8 @@ namespace BulletRay.Migrations
 
                     b.Property<string>("TagName")
                         .IsRequired();
+
+                    b.Property<long>("TagNum");
 
                     b.HasKey("Id");
 
