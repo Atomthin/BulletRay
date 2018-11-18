@@ -26,6 +26,12 @@ namespace BulletRay.Articles
             _articleCategoryRepository = articleCategoryRepository;
         }
 
+        public override Task<ArticleDto> Create(CreateArticleDto input)
+        {
+            return base.Create(input);
+        }
+
+
         /// <summary>
         /// 重写GetAll方法
         /// </summary>

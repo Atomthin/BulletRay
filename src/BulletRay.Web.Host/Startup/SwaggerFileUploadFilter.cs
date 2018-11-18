@@ -23,14 +23,13 @@ namespace BulletRay.Web.Host.Startup
             operation.Consumes.Add("multipart/form-data");
             foreach (var fileParameter in fileParameters)
             {
-                var parameter = operation.Parameters.Single(n => n.Name == fileParameter.Name);
-                operation.Parameters.Remove(parameter);
+                operation.Parameters.Clear();
                 operation.Parameters.Add(new NonBodyParameter
                 {
-                    Name = parameter.Name,
+                    Name = "file",
                     In = "formData",
-                    Description = parameter.Description,
-                    Required = parameter.Required,
+                    Description = "File Upload",
+                    Required = true,
                     Type = "file"
                 });
             }

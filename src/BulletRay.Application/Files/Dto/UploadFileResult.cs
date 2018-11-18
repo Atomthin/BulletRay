@@ -2,8 +2,7 @@
 {
     public class UploadFileResult
     {
-        public bool Result { get; set; }
-        public string FileUrl { get; set; }
-        public string Msg { get; set; }
+        public string Name { get; set; }
+        public string Url { get; set; }
     }
 }
