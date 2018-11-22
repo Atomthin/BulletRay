@@ -3,6 +3,43 @@
     InitFileInput();
     InitTinyMce();
     InitTypeahead();
+    $("#btnSubmit").on("click", function () {
+        var formData = $("#createArticleForm").serializeFormToObject();
+        var tagArr = $("#typeaheadTag").tagsinput("items");
+        if (tagArr !== undefined && tagArr !== null && tagArr.length > 0) {
+            var tagStr = "";
+            var tagNum = 0;
+            for (var i = 0; i < tagArr.length; i++) {
+                tagStr += tagArr[i].tagName + ",";
+                tagNum += tagArr[i].tagNum;
+            }
+            tagStr = tagStr.substr(0, tagStr.length - 1);
+            formData["TagStr"] = tagStr;
+            formData["TagNum"] = tagNum;
+        }
+        if (tinymce.activeEditor.getContent() !== null) {
+            formData["Content"] = tinymce.activeEditor.getContent();
+        } else {
+            abp.message.warn("正文不能为空！");
+        }
+        $.ajax({
+            url: abp.appPath + "Article/Create",
+            type: "POST",
+            data: JSON.stringify(formData),
+            contentType: "application/json",
+            success: function (data) {
+                if (data !== null && data.success === true && data.result === true) {
+                    abp.message.info("创建文章成功！");
+                    location.reload(true);
+                } else {
+                    abp.message.error("创建文章失败，稍后再试！");
+                }
+            },
+            error: function (e) {
+                abp.message.error("创建文章失败，稍后再试！");
+            }
+        });
+    });
 });
 
 function GetSelectData() {
@@ -60,13 +97,13 @@ function InitFileInput() {
         dropZoneTitle: "添加文章封面图片!! 拖拽文件到这里, 只支持 jpg, png, jpeg的文件!"
     });
     $("#inputAttachment").on("filebatchuploadsuccess", function (event, data) {
-        if (data != null && data.response.success == true && data.response.result.url != "") {
+        if (data !== null && data.response.success === true && data.response.result.url !== "") {
             $("#coverImgUrl").val(data.response.result.url);
         } else {
             abp.message.error("上传图片失败，稍后再试！");
         }
     }).on("filesuccessremove", function (event, id) {
-        $("#coverImgUrl").val();
+        $("#coverImgUrl").val("");
     });
 }
 

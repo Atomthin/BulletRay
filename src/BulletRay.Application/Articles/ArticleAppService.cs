@@ -26,9 +26,17 @@ namespace BulletRay.Articles
             _articleCategoryRepository = articleCategoryRepository;
         }
 
-        public override Task<ArticleDto> Create(CreateArticleDto input)
+        /// <summary>
+        /// 重写创建方法，不对外暴露
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [RemoteService(false)]
+        public override async Task<ArticleDto> Create(CreateArticleDto input)
         {
-            return base.Create(input);
+            var articleInfo = MapToEntity(input);
+            var resultEntity = await Repository.InsertAsync(articleInfo);
+            return MapToEntityDto(resultEntity);
         }
 
 

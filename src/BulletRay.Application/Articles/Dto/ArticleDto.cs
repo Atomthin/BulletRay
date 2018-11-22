@@ -13,7 +13,8 @@ namespace BulletRay.Articles.Dto
         public string CoverImgUrl { get; set; }
         public int? Like { get; set; }
         public int? UnLike { get; set; }
-        public int? Tag { get; set; }
+        public long? TagNum { get; set; }
+        public string TagStr { get; set; }
         public long UserId { get; set; }
         public bool IsTop { get; set; }
         public int CategoryId { get; set; }

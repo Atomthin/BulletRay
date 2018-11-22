@@ -66,7 +66,7 @@ namespace BulletRay.Web.Startup
                             PageNames.CreateArticle,
                             L("CreateArticle"),
                             url: "Article/Create",
-                            icon: "create"))
+                            icon: "add"))
                 ).AddItem(
                     new MenuItemDefinition(
                         PageNames.ArticleCategory,

@@ -10,6 +10,7 @@
         public const string Article = "Article";
         public const string ArticleList = "ArticleList";
         public const string CreateArticle = "CreateArticle";
+        public const string UpdateArticle = "UpdateArticle";
         public const string ArticleCategory = "ArticleCategory";
         public const string Comment = "Comment";
         public const string Tag = "Tag";

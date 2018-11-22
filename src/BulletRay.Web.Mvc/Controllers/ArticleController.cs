@@ -9,7 +9,7 @@ using BulletRay.Web.Models.Common;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace BulletRay.Web.Mvc.Controllers
+namespace BulletRay.Web.Controllers
 {
     [AbpMvcAuthorize]
     public class ArticleController : BulletRayControllerBase
@@ -46,9 +46,52 @@ namespace BulletRay.Web.Mvc.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            return await Task.FromResult(View("CreateOrEdit", null));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody]CreateOrEditArticleModel input)
+        {
+            var articleInfo = await _articleAppService.Create(new CreateArticleDto
+            {
+                CategoryId = input.CategoryId,
+                Content = input.Content,
+                CoverImgUrl = input.CoverImgUrl,
+                IsTop = input.IsTop,
+                ShortDesc = input.ShortDesc,
+                Title = input.Title,
+                TagNum = input.TagNum,
+                TagStr = input.TagStr,
+                UserId = AbpSession.UserId ?? 1
+            });
+            return articleInfo != null ? Json(true) : Json(false);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(long id)
+        {
+            var articleInfo = await _articleAppService.Get(new ArticleDto { Id = id });
+            var model = ObjectMapper.Map<CreateOrEditArticleModel>(articleInfo);
+            return await Task.FromResult(View("CreateOrEdit", model));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit([FromBody]CreateOrEditArticleModel input)
+        {
+            var articleInfo = await _articleAppService.Update(new UpdateArticleDto
+            {
+                CategoryId = input.CategoryId,
+                Content = input.Content,
+                CoverImgUrl = input.CoverImgUrl,
+                IsTop = input.IsTop,
+                ShortDesc = input.ShortDesc,
+                Title = input.Title,
+                TagNum = input.TagNum,
+                TagStr = input.TagStr
+            });
+            return articleInfo != null ? Json(true) : Json(false);
         }
     }
 }
