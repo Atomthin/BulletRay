@@ -37,7 +37,7 @@
                 document.body.appendChild(a);
                 a.click();
             } else {
-                abp.message.alert("导出Excel失败！")
+                abp.message.alert("导出Excel失败！");
             }
         };
         xhr.send();

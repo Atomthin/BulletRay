@@ -1,7 +1,27 @@
 ﻿$(function () {
     GetSelectData();
     InitTable();
+    $("#resultTable").on("click", ".delete-article", function () {
+        var skillgroupId = $(this).attr("data-article-id");
+        var skillgroupName = $(this).attr('data-article-name');
+        deleteArticle(skillgroupId, skillgroupName);
+    });
 });
+
+function deleteArticle(articleId, articleTitle) {
+    abp.message.confirm(
+        "确认删除文章 '" + articleTitle + "'?",
+        function (isConfirmed) {
+            if (isConfirmed) {
+                _skillgroupService.delete({
+                    id: skillgroupId
+                }).done(function () {
+                    refreshSkillGroupList();
+                });
+            }
+        }
+    );
+}
 
 function GetSelectData() {
     $.ajax({
@@ -92,7 +112,7 @@ function InitTable() {
                 "data": "id",
                 "class": "dropdown align-center",
                 "render": function (data, type, row, meta) {
-                    return "<a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'><i class='material-icons'>menu</i></a><ul class='dropdown-menu pull-right'><li><a href='#' class='waves-effect waves-block edit-articlecategory' data-articlecategory-id='" + data + "' data-toggle='modal' data-target='#EditArticleCategoryModal'><i class='material-icons'>edit</i>编辑</a></li><li><a href='#' class='waves-effect waves-block delete-articlecategory' data-articlecategory-id='" + data + "' data-articlecategory-name='" + row.name + "'><i class='material-icons'>delete_sweep</i>删除</a></li></ul>";
+                    return "<a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'><i class='material-icons'>menu</i></a><ul class='dropdown-menu pull-right'><li><a href='#' class='waves-effect waves-block edit-articlecategory' data-articlecategory-id='" + data + "' data-toggle='modal' data-target='#EditArticleCategoryModal'><i class='material-icons'>edit</i>编辑</a></li><li><a href='#' class='waves-effect waves-block delete-article' data-article-id='" + data + "' data-article-title='" + row.title + "'><i class='material-icons'>delete_sweep</i>删除</a></li></ul>";
                 }
             }
         ]

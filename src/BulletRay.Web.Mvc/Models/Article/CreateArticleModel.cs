@@ -1,6 +1,6 @@
 ﻿namespace BulletRay.Web.Models.Article
 {
-    public class CreateOrEditArticleModel
+    public class CreateArticleModel
     {
         public string Title { get; set; }
         public string Content { get; set; }

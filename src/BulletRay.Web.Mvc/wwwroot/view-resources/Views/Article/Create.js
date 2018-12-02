@@ -17,6 +17,7 @@
             formData["TagStr"] = tagStr;
             formData["TagNum"] = tagNum;
         }
+        formData["IsTop"] = $("#isTop").is(":checked");
         if (tinymce.activeEditor.getContent() !== null) {
             formData["Content"] = tinymce.activeEditor.getContent();
         } else {

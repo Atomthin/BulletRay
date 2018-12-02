@@ -47,13 +47,26 @@ namespace BulletRay.Articles
         /// <returns></returns>
         public override async Task<PagedResultDto<ArticleDto>> GetAll(GetAllArticleDto input)
         {
-            var query = CreateFilteredQuery(input);
+            var query = from a in Repository.GetAll()
+                        join ac in _articleCategoryRepository.GetAll() on a.CategoryId equals ac.Id
+                        select new ArticleDto
+                        {
+                            Id = a.Id,
+                            Title = a.Title,
+                            Content = a.Content,
+                            ShortDesc = a.ShortDesc,
+                            CoverImgUrl = a.CoverImgUrl,
+                            IsTop = a.IsTop,
+                            CategoryId = a.CategoryId,
+                            CategoryName = ac.Name
+                        };
+            query = query.WhereIf(input.CategoryId != 0, m => m.CategoryId == input.CategoryId);
             var orderExpression = !string.IsNullOrEmpty(input.Sorting) ? string.Format("{0} {1}", input.Sorting.Split(',')[0], input.Sorting.Split(',')[1]) : string.Empty;
             if (!string.IsNullOrEmpty(orderExpression))
             {
                 query = query.OrderBy(orderExpression);
             }
-            var articleList = new List<Article>();
+            var articleList = new List<ArticleDto>();
             if (input.SkipCount == 0 && input.MaxResultCount == 0)
             {
                 articleList = await query.ToListAsync();
@@ -62,33 +75,7 @@ namespace BulletRay.Articles
             {
                 articleList = await query.Skip(input.SkipCount).Take(input.MaxResultCount).ToListAsync();
             }
-            var pagedList = articleList.MapTo<List<ArticleDto>>();
-            var categoryIdList = pagedList.Select(m => m.Id).Distinct();
-            var categoryList = _articleCategoryRepository.GetAll().Where(m => categoryIdList.Contains(m.Id));
-            foreach (var item in categoryList)
-            {
-                pagedList.Where(m => m.CategoryId == item.Id).ToList().ForEach(m => m.CategoryName = item.Name);
-            }
-            return new PagedResultDto<ArticleDto>(query.Count(), pagedList);
-        }
-
-        /// <summary>
-        /// 重写基类CreateFilteredQuery增加筛选条件
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        protected override IQueryable<Article> CreateFilteredQuery(GetAllArticleDto input)
-        {
-            var query = base.CreateFilteredQuery(input);
-            if (!string.IsNullOrEmpty(input.UserName))
-            {
-                query = from user in _userRepository.GetAll()
-                        join article in Repository.GetAll() on user.Id equals article.CreatorUserId
-                        where user.UserName == input.UserName
-                        select article;
-            }
-            query.WhereIf(!string.IsNullOrEmpty(input.Title), m => m.Title.Contains(input.Title)).WhereIf(input.CategoryId != 0, m => m.CategoryId == input.CategoryId);
-            return query;
+            return new PagedResultDto<ArticleDto>(query.Count(), articleList);
         }
 
         /// <summary>

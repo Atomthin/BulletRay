@@ -48,11 +48,11 @@ namespace BulletRay.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            return await Task.FromResult(View("CreateOrEdit", null));
+            return await Task.FromResult(View());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody]CreateOrEditArticleModel input)
+        public async Task<IActionResult> Create([FromBody]CreateArticleModel input)
         {
             var articleInfo = await _articleAppService.Create(new CreateArticleDto
             {
@@ -65,31 +65,6 @@ namespace BulletRay.Web.Controllers
                 TagNum = input.TagNum,
                 TagStr = input.TagStr,
                 UserId = AbpSession.UserId ?? 1
-            });
-            return articleInfo != null ? Json(true) : Json(false);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Edit(long id)
-        {
-            var articleInfo = await _articleAppService.Get(new ArticleDto { Id = id });
-            var model = ObjectMapper.Map<CreateOrEditArticleModel>(articleInfo);
-            return await Task.FromResult(View("CreateOrEdit", model));
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Edit([FromBody]CreateOrEditArticleModel input)
-        {
-            var articleInfo = await _articleAppService.Update(new UpdateArticleDto
-            {
-                CategoryId = input.CategoryId,
-                Content = input.Content,
-                CoverImgUrl = input.CoverImgUrl,
-                IsTop = input.IsTop,
-                ShortDesc = input.ShortDesc,
-                Title = input.Title,
-                TagNum = input.TagNum,
-                TagStr = input.TagStr
             });
             return articleInfo != null ? Json(true) : Json(false);
         }
